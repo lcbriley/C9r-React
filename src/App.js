@@ -1,15 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import Popup from './Popup';
+//import {AddField} from './AddField';
+//import Main from './Main.js'
+import './babel.config.js';
+import { useState } from 'react';
+import {Helmet} from "react-helmet";
+//import React, { Component } from 'react'
+//import Collapsible from 'react-collapsible';
+import AddField from './AddField';
+import AddGroup from './AddGroup';
+//import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
+
+
+
 
 function App() {
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [buttonAddField, setButtonAddField] = useState(false);
+  const [buttonAddGroup, setButtonAddGroup] = useState(false);
   return (
       <div className="App">
-        <nav className="flex items-center justify-between flex-wrap bg-sky-900 p-3">
+<Helmet><script src="https://kit.fontawesome.com/1348f1f9e7.js" crossorigin="anonymous"></script></Helmet>
+
+        <nav className="flex items-center flex-wrap bg-sky-900 p-3">
           <div className="flex items-center flex-shrink-0 text-white mr-6 pl-2">
             <img src="img/Logo.png" alt="" className="h-12 w-20"/>
           </div>
   
-          <div className="w-full block flex-grow sm:flex sm:items-center sm:w-auto">
+          <div className="w-full block flex-grow sm:flex sm:w-auto">
             <div className="text-sm sm:flex-grow">
               <a href="#" className="block mt-4 sm:inline-block sm:mt-0 text-slate-400 hover:text-white mr-4">
                 Projects
@@ -48,6 +70,173 @@ function App() {
           </div>
 
           <hr className="mt-4"/>
+
+
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setButtonPopup(true)}>Open Popup</button>
+
+          <Popup trigger={buttonPopup} setTrigger= {setButtonPopup}>
+      
+          <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+            <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Modify Fields</h5>    
+          </div>
+          <div class="modal-body relative p-4">
+            <div className='add-btns flex justify-end'>
+
+
+              <button onClick={() => setButtonAddGroup (true)} className='inline-flex mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
+              </button>
+{/* ----------ADD GROUP POPUP--------- */}
+
+                  <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}>
+                  <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+                    <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Group</h5>    
+                  </div>
+
+                 <div className='modal-body p-4'>
+                    <div className='flex justify-between'>
+                      <div className='flex text-sm mt-3 mr-2'>Group Name</div>
+                      <input type="text" className='mt-1 block w-1/4 border border-grey-500 shadow-sm' placeholder='Group Name'></input>
+
+                      <div className='flex text-sm mt-3 mr-2'>Filter</div>
+                      <input type="text" className='mt-1 block w-1/4 border border-grey-500 shadow-sm' placeholder='Filter'></input>
+                    </div>
+
+                    <div className='flex divide-x mt-6'>
+                      <div className='w-1/2'>
+                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1" />
+                          <button><i class="fa-solid fa-arrow-down-a-z"></i></button>
+                          <button><i class="fa-solid fa-arrow-down-z-a"></i></button>
+                          <div>Field Selection</div>
+                          <div>0</div>
+                      </div>
+                      <div className='w-1/2'>
+                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1" />
+                          <button><i class="fa-solid fa-arrow-down-a-z"></i></button>
+                          <button><i class="fa-solid fa-arrow-down-z-a"></i></button>
+                          <div>Field Selection</div>
+                          <div>0</div>
+                      </div>
+                    </div>
+
+                    <div className='flex justify-end mt-8'>
+                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-blue-600'> Cancel </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-blue-500 text-white'> Update </button>
+                          </div>
+
+
+                 </div>
+
+                  </AddGroup>
+
+
+
+{/* ----------END ADD GROUP POPUP--------- */}
+
+              <button onClick={() => setButtonAddField (true)} className='inline-flex '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
+              </button>
+            </div>
+{/* ----------ADD FIELD POPUP--------- */}
+                  <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}>
+                      <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+                        <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
+                      </div>
+
+                      <div class="modal-body relative p-4 ">
+                          <div> Settings</div>
+                          
+                          <div className=' flex text-sm mt-3 content-around'>Name 
+                            <input type="text" className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'></input> 
+                          </div> 
+                          <div className=' flex text-sm mt-3 content-around'>Scope 
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'>
+                                <option>Global</option>
+                                <option>Local</option>
+                            </select>
+                          </div>
+                          <div className=' flex text-sm mt-3 content-around'>Field Type 
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 text-sm'>
+                              <option>Yes/No</option>
+                              <option>Text</option>
+                              <option>Date</option>
+                              <option>Number</option>
+                              <option>Select</option>
+                              <option>Multi-Select</option>
+                          
+                            </select> 
+                          </div>
+                          <div className=' flex text-sm mt-3 content-around'>Field Group 
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'>
+                              <option>Global</option>
+                            </select>
+                          </div>
+
+                          <div className='flex text-sm mt-3 content-around'>Quick Search
+                            
+                            <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 ml-3 mt-1" />
+                          
+                          </div>
+
+                          <div className='flex text-sm mt-3 content-around'>Include Family (tagging)
+                            
+                            <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 ml-3 mt-1" />
+                          
+                          </div>
+
+                          <div className='flex justify-end mt-8'>
+                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-blue-600'> Cancel </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-blue-500 text-white'> Update </button>
+                          </div>
+
+                      </div>
+                  </AddField>
+{/* ----------END ADD FIELD POPUP--------- */}
+
+
+{/* ----------MODIFY FIELDS POPUP--------- */}
+            <div className='levels mt-4'>
+              <div className='global-section border-b text-left py-3 justify-between flex'>
+              <div className='justify-start space-x-4 flex'>
+                <div className=''><i class="fa-solid fa-bars"></i></div>
+                    <div>Global <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
+              </div>
+                  <div className=''> 
+                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+  
+                  </div>
+              </div>
+              <div className='global-section border-b text-left py-3 justify-between flex'>
+              <div className='justify-start space-x-4 flex'>
+                <div className=''><i class="fa-solid fa-bars"></i></div>
+                    <div>Private <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
+              </div>
+                  <div className='inline-flex'> 
+                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+  
+                  </div>
+              </div>
+              <div className='global-section border-b text-left py-3 justify-between flex'>
+              <div className='justify-start space-x-4 flex'>
+                <div className=''><i class="fa-solid fa-bars"></i></div>
+                    <div>System <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
+              </div>
+                  <div className='inline-flex'> 
+                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+  
+                  </div>
+              </div>
+  
+            </div>
+          </div>
+          </Popup>
+{/* ----------END MODIFY FIELDS POPUP--------- */}
+
+
   
         <div className="flex justify-center mt-5">
           <p className=" text-sm">
