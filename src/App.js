@@ -72,7 +72,7 @@ function App() {
           <hr className="mt-4"/>
 
 
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setButtonPopup(true)}>Open Popup</button>
+          <button className="bg-gradient-to-r from-light-blue to-dark-blue text-white font-bold py-2 px-4 rounded" onClick={() => setButtonPopup(true)}>Open Popup</button>
 
           <Popup trigger={buttonPopup} setTrigger= {setButtonPopup}>
       
@@ -119,8 +119,8 @@ function App() {
                     </div>
 
                     <div className='flex justify-end mt-8'>
-                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-blue-600'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-blue-500 text-white'> Update </button>
+                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-light-blue to-dark-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
 
@@ -141,20 +141,20 @@ function App() {
                         <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
                       </div>
 
-                      <div class="modal-body relative p-4 ">
-                          <div> Settings</div>
+                      <div class="modal-body relative p-4">
+                          <div className='font-semibold text-lg'> Settings</div>
                           
                           <div className=' flex text-sm mt-3 content-around'>Name 
-                            <input type="text" className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'></input> 
+                            <input type="text" className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
                           </div> 
                           <div className=' flex text-sm mt-3 content-around'>Scope 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'>
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                                 <option>Global</option>
                                 <option>Local</option>
                             </select>
                           </div>
                           <div className=' flex text-sm mt-3 content-around'>Field Type 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 text-sm'>
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                               <option>Yes/No</option>
                               <option>Text</option>
                               <option>Date</option>
@@ -165,7 +165,7 @@ function App() {
                             </select> 
                           </div>
                           <div className=' flex text-sm mt-3 content-around'>Field Group 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3'>
+                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                               <option>Global</option>
                             </select>
                           </div>
@@ -183,8 +183,8 @@ function App() {
                           </div>
 
                           <div className='flex justify-end mt-8'>
-                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-blue-600'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-blue-500 text-white'> Update </button>
+                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-light-blue to-dark-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
                       </div>
@@ -197,7 +197,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>Global <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
+                    <div>Global <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
                   <div className=''> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
@@ -209,7 +209,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>Private <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
+                    <div>Private <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
               </div>
                   <div className='inline-flex'> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
@@ -221,7 +221,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>System <span className='rounded bg-blue-500 text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
+                    <div>System <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
               </div>
                   <div className='inline-flex'> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
