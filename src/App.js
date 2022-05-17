@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Popup from './Popup';
+import Tooltip from '@mui/material/Tooltip';
 //import {AddField} from './AddField';
 //import Main from './Main.js'
 import './babel.config.js';
@@ -83,8 +84,10 @@ function App() {
             <div className='add-btns flex justify-end'>
 
 
-              <button onClick={() => setButtonAddGroup (true)} className='inline-flex mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
-              </button>
+              <Tooltip title="Add Group" arrow>
+                <button onClick={() => setButtonAddGroup (true)} className='inline-flex mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
+                </button>
+              </Tooltip>
 {/* ----------ADD GROUP POPUP--------- */}
 
                   <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}>
@@ -93,34 +96,41 @@ function App() {
                   </div>
 
                  <div className='modal-body p-4'>
-                    <div className='flex justify-between'>
-                      <div className='flex text-sm mt-3 mr-2'>Group Name</div>
-                      <input type="text" className='mt-1 block w-1/4 border border-grey-500 shadow-sm' placeholder='Group Name'></input>
 
-                      <div className='flex text-sm mt-3 mr-2'>Filter</div>
-                      <input type="text" className='mt-1 block w-1/4 border border-grey-500 shadow-sm' placeholder='Filter'></input>
+                    <div className='flex flex-row'>
+                      <div className='basis-1/2 flex'>
+                        <div className=' text-sm font-semibold mt-1.5 mr-2'>Group Name:</div>
+                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7'></input>
+                      </div>
+
+                      
+                      <div className='basis-1/2 flex justify-end'>
+                        <div className=' text-sm mt-1.5 mr-2'>Filter:</div>
+                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7'></input>
+                      </div>        
+                      
                     </div>
 
-                    <div className='flex divide-x mt-6'>
-                      <div className='w-1/2'>
-                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1" />
-                          <button><i class="fa-solid fa-arrow-down-a-z"></i></button>
-                          <button><i class="fa-solid fa-arrow-down-z-a"></i></button>
-                          <div>Field Selection</div>
-                          <div>0</div>
+                    <div className='mt-6 border border-grey-300 h-80'>
+                      <div className='border-b'>
+                          <div className='text-center p-2 font-semibold'>Field Selection</div>
+
+                          <div className='flex justify-between ml-3 mt-1 mb-3'>
+                            <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+                            <div>
+                              <button><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
+                              <button><i class="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
+                            </div>
+                            
+                            <div className='mr-5'>0</div>
+                          </div>
                       </div>
-                      <div className='w-1/2'>
-                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1" />
-                          <button><i class="fa-solid fa-arrow-down-a-z"></i></button>
-                          <button><i class="fa-solid fa-arrow-down-z-a"></i></button>
-                          <div>Field Selection</div>
-                          <div>0</div>
-                      </div>
+                     
                     </div>
 
                     <div className='flex justify-end mt-8'>
                             <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-light-blue to-dark-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
 
@@ -132,8 +142,10 @@ function App() {
 
 {/* ----------END ADD GROUP POPUP--------- */}
 
-              <button onClick={() => setButtonAddField (true)} className='inline-flex '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
-              </button>
+              <Tooltip title="Add Field" arrow>
+                <button onClick={() => setButtonAddField (true)} className='inline-flex '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
+                </button>
+              </Tooltip>
             </div>
 {/* ----------ADD FIELD POPUP--------- */}
                   <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}>
@@ -144,47 +156,50 @@ function App() {
                       <div class="modal-body relative p-4">
                           <div className='font-semibold text-lg'> Settings</div>
                           
-                          <div className=' flex text-sm mt-3 content-around'>Name 
-                            <input type="text" className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
-                          </div> 
-                          <div className=' flex text-sm mt-3 content-around'>Scope 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
-                                <option>Global</option>
-                                <option>Local</option>
-                            </select>
-                          </div>
-                          <div className=' flex text-sm mt-3 content-around'>Field Type 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
-                              <option>Yes/No</option>
-                              <option>Text</option>
-                              <option>Date</option>
-                              <option>Number</option>
-                              <option>Select</option>
-                              <option>Multi-Select</option>
-                          
-                            </select> 
-                          </div>
-                          <div className=' flex text-sm mt-3 content-around'>Field Group 
-                            <select className='mt-1 block w-4/5 border border-grey-500 shadow-sm ml-3 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                          <div className='grid grid-cols-3 grid-rows-6 gap-3'>
+
+                              <div className='col-span-1 flex text-sm'>Name </div> 
+                              <input type="text" className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
+
+
+                              <div className='col-span-1 flex text-sm content-around'>Scope </div>
+                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                               <option>Global</option>
-                            </select>
-                          </div>
+                              <option>Local</option>
+                              </select>
 
-                          <div className='flex text-sm mt-3 content-around'>Quick Search
-                            
-                            <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 ml-3 mt-1" />
-                          
-                          </div>
+                              <div className='col-span-1 flex text-sm content-around'>Field Type </div>
+                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                                <option>Yes/No</option>
+                                <option>Text</option>
+                                <option>Date</option>
+                                <option>Number</option>
+                                <option>Select</option>
+                                <option>Multi-Select</option>
+                              </select>
 
-                          <div className='flex text-sm mt-3 content-around'>Include Family (tagging)
-                            
-                            <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 ml-3 mt-1" />
-                          
+
+                              <div className='col-span-1 flex text-sm content-around'>Field Group </div>
+                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                                <option>Global</option>
+                              </select>
+    
+                              
+                              <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                              <div className='col-span-2 flex text-sm content-around'>Quick Search</div>
+                             
+    
+                              
+                              
+                              <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                              <div className='col-span-2 flex text-sm content-around'>Include Family (tagging)</div>
+                              
+                                                         
                           </div>
 
                           <div className='flex justify-end mt-8'>
                             <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-light-blue to-dark-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
                       </div>
@@ -197,7 +212,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>Global <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
+                    <div>Global <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
                   <div className=''> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
@@ -209,7 +224,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>Private <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
+                    <div>Private <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
               </div>
                   <div className='inline-flex'> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
@@ -221,7 +236,7 @@ function App() {
               <div className='global-section border-b text-left py-3 justify-between flex'>
               <div className='justify-start space-x-4 flex'>
                 <div className=''><i class="fa-solid fa-bars"></i></div>
-                    <div>System <span className='rounded bg-dark-blue text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
+                    <div>System <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
               </div>
                   <div className='inline-flex'> 
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
