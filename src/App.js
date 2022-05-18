@@ -11,6 +11,7 @@ import {Helmet} from "react-helmet";
 //import Collapsible from 'react-collapsible';
 import AddField from './AddField';
 import AddGroup from './AddGroup';
+import DeleteGroup from './DeleteGroup';
 //import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,6 +24,7 @@ function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [buttonAddField, setButtonAddField] = useState(false);
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
+  const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
   return (
       <div className="App">
 <Helmet><script src="https://kit.fontawesome.com/1348f1f9e7.js" crossorigin="anonymous"></script></Helmet>
@@ -100,13 +102,13 @@ function App() {
                     <div className='flex flex-row'>
                       <div className='basis-1/2 flex'>
                         <div className=' text-sm font-semibold mt-1.5 mr-2'>Group Name:</div>
-                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7'></input>
+                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input>
                       </div>
 
                       
                       <div className='basis-1/2 flex justify-end'>
                         <div className=' text-sm mt-1.5 mr-2'>Filter:</div>
-                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7'></input>
+                        <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input>
                       </div>        
                       
                     </div>
@@ -118,7 +120,7 @@ function App() {
                           <div className='flex justify-between ml-3 mt-1 mb-3'>
                             <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
                             <div>
-                              <button><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
+                              <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
                               <button><i class="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
                             </div>
                             
@@ -129,8 +131,8 @@ function App() {
                     </div>
 
                     <div className='flex justify-end mt-8'>
-                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                            <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                            <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
 
@@ -198,8 +200,8 @@ function App() {
                           </div>
 
                           <div className='flex justify-end mt-8'>
-                            <button className='border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
-                            <button className='border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                            <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                            <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                           </div>
 
                       </div>
@@ -244,6 +246,46 @@ function App() {
                       <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
   
                   </div>
+              </div>
+
+              <div className='global-section border-b text-left py-3 justify-between flex'>
+              <div className='justify-start space-x-4 flex'>
+                <div className=''><i class="fa-solid fa-bars"></i></div>
+                    <div>USER CREATED <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
+              </div>
+                  <div className=''> 
+                      <button className='mr-3'><i class="fa-solid fa-pencil"></i></button>
+                      <button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button>
+                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+  
+                  </div>
+
+
+{/* ----------Delete Group POPUP--------- */}
+                <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}>
+                  <div className="modal-header p-4 border-b border-gray-200">
+                    <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Group</h5>    
+                  </div>
+                  
+                  <div class="modal-body relative p-4">
+  
+                    <div className='text-center text-xl mt-3'><i class="fa-solid fa-triangle-exclamation fa-xl text-red-600"></i> This action is permanent... </div>
+  
+                    <div className='mt-6 text-center'>Are you sure you want to delete: USER CREATED</div>
+  
+                    <div className='flex justify-end mt-8'>
+                        <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                        <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Continue </button>
+                    </div>
+                  </div>
+
+
+                </DeleteGroup>
+{/* ----------END Delete Group POPUP--------- */}
+
+
               </div>
   
             </div>
