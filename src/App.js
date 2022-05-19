@@ -12,6 +12,9 @@ import {Helmet} from "react-helmet";
 import AddField from './AddField';
 import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
+import EditGroup from './EditGroup';
+import EditField from './EditField';
+import DeleteField from './DeleteField';
 //import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -25,6 +28,9 @@ function App() {
   const [buttonAddField, setButtonAddField] = useState(false);
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
+  const [buttonEditGroup, setButtonEditGroup] = useState(false);
+  const [buttonEditField, setButtonEditField] = useState(false);
+  const [buttonDeleteField, setButtonDeleteField] = useState(false);
   return (
       <div className="App">
 <Helmet><script src="https://kit.fontawesome.com/1348f1f9e7.js" crossorigin="anonymous"></script></Helmet>
@@ -254,7 +260,7 @@ function App() {
                     <div>USER CREATED <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
                   <div className=''> 
-                      <button className='mr-3'><i class="fa-solid fa-pencil"></i></button>
+                      <button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button>
                       <button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button>
                       <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
                       <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
@@ -262,10 +268,107 @@ function App() {
   
                   </div>
 
+                      
+                  </div>
+
+                  <div className='border border-grey-300 mt-2 flex justify-between'>
+                          <div className='ml-2'><i class="fa-solid fa-bars mr-2"></i>USER CREATED Field 1</div>
+                          <div>Yes/No</div>
+                          <div><i class="fa-solid fa-user-tag"></i></div>
+                          <div>By: Claire Briley</div>
+                          <div className=''>
+                            <button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button>
+                            <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
+                            <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                          </div>
+                      </div>
+{/* ----------EDIT FIELD POPUP--------- */}
+
+                    <EditField trigger={buttonEditField} setTrigger= {setButtonEditField}>
+                    <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+                    <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
+                  </div>
+
+                  <div class="modal-body relative p-4">
+                      <div className='font-semibold text-lg'> Settings</div>
+                      
+                      <div className='grid grid-cols-3 grid-rows-6 gap-3'>
+
+                          <div className='col-span-1 flex text-sm'>Name </div> 
+                          <input type="text" className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
+
+                          <div className='col-span-1 flex text-sm content-around'>Scope </div>
+                          <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                          <option>Global</option>
+                          <option>Local</option>
+                          </select>
+
+                          <div className='col-span-1 flex text-sm content-around'>Field Type </div>
+                          <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                            <option>Yes/No</option>
+                            <option>Text</option>
+                            <option>Date</option>
+                            <option>Number</option>
+                            <option>Select</option>
+                            <option>Multi-Select</option>
+                          </select>
+
+
+                          <div className='col-span-1 flex text-sm content-around'>Field Group </div>
+                          <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                            <option>Global</option>
+                          </select>
+                        
+                          <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                          <div className='col-span-2 flex text-sm content-around'>Quick Search</div>
+
+                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                          <div className='col-span-2 flex text-sm content-around'>Include Family (tagging)</div>
+                           
+                      </div>
+
+                    
+                      <div className='flex justify-between mt-8'>
+                      
+                        <button onClick={() => setButtonDeleteField (true)} className='rounded border border-grey-200 py-1 px-2.5 text-red-600 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Delete Field </button>
+
+                        <div>
+                          <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                          <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                        </div>
+                      </div>
+
+                  </div>
+                    </EditField>
+
+{/* ----------END EDIT FIELD POPUP--------- */}
+
+{/* ----------Delete FIELD Confirmation POPUP--------- */}
+                  <DeleteField trigger={buttonDeleteField} setTrigger= {setButtonDeleteField}>
+                    <div className="modal-header p-4 border-b flex border-gray-200">
+                      <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Field</h5>    
+                    </div>
+
+                    <div class="modal-body relative p-4">
+
+                      <div className='text-center text-xl mt-3'><i class="fa-solid fa-triangle-exclamation fa-xl text-red-600"></i> This action is permanent... </div>
+
+                      <div className='mt-6 text-center'>Are you sure you want to delete: USER CREATED Field 1</div>
+
+                      <div className='flex justify-end mt-8'>
+                        <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                        <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Continue </button>
+                      </div>
+                    </div>
+
+
+                  </DeleteField>
+
+{/* ----------Delete FIELD Confirmation POPUP--------- */}
 
 {/* ----------Delete Group POPUP--------- */}
                 <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}>
-                  <div className="modal-header p-4 border-b border-gray-200">
+                  <div className="modal-header flex p-4 border-b border-gray-200">
                     <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Group</h5>    
                   </div>
                   
@@ -285,8 +388,60 @@ function App() {
                 </DeleteGroup>
 {/* ----------END Delete Group POPUP--------- */}
 
+{/* ----------EDIT FIELD Group POPUP--------- */}
 
-              </div>
+<EditGroup trigger={buttonEditGroup} setTrigger= {setButtonEditGroup}>
+<div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+  <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Edit: USER CREATED</h5>    
+</div>
+
+<div className='modal-body p-4'>
+
+  <div className='flex flex-row'>
+    <div className='basis-1/2 flex'>
+      <div className=' text-sm font-semibold mt-1.5 mr-2'>Group Name:</div>
+      <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input>
+    </div>
+
+    
+    <div className='basis-1/2 flex justify-end'>
+      <div className=' text-sm mt-1.5 mr-2'>Filter:</div>
+      <input type="text" className='mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input>
+    </div>        
+    
+  </div>
+
+  <div className='mt-6 border border-grey-300 h-80'>
+    <div className='border-b'>
+        <div className='text-center p-2 font-semibold'>Field Selection</div>
+
+        <div className='flex justify-between ml-3 mt-1 mb-3'>
+          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+          <div>
+            <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
+            <button><i class="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
+          </div>
+          
+          <div className='mr-5'>0</div>
+        </div>
+    </div>
+   
+  </div>
+
+  <div className='flex justify-end mt-8'>
+          <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+          <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+        </div>
+
+
+</div>
+
+</EditGroup>
+
+{/* ----------END EDIT FIELD Group POPUP--------- */}
+
+
+              
   
             </div>
           </div>
