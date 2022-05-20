@@ -1,6 +1,5 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import Popup from './Popup';
 import Tooltip from '@mui/material/Tooltip';
 //import {AddField} from './AddField';
 //import Main from './Main.js'
@@ -9,6 +8,7 @@ import { useState } from 'react';
 import {Helmet} from "react-helmet";
 //import React, { Component } from 'react'
 //import Collapsible from 'react-collapsible';
+import Popup from './Popup';
 import AddField from './AddField';
 import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
@@ -223,9 +223,9 @@ function App() {
                     <div>Global <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
                   <div className=''> 
-                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+                      <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                      <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                      <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
   
                   </div>
               </div>
@@ -235,9 +235,9 @@ function App() {
                     <div>Private <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
               </div>
                   <div className='inline-flex'> 
-                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+                      <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                      <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                      <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
   
                   </div>
               </div>
@@ -247,9 +247,9 @@ function App() {
                     <div>System <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
               </div>
                   <div className='inline-flex'> 
-                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+                      <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                      <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                      <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
   
                   </div>
               </div>
@@ -260,11 +260,11 @@ function App() {
                     <div>USER CREATED <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
                   <div className=''> 
-                      <button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button>
-                      <button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button>
-                      <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
-                      <button className='mr-3'><i class="fa-solid fa-angle-down"></i></button>
+                      <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
+                      <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button></Tooltip>
+                      <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                      <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                      <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
   
                   </div>
 
@@ -277,16 +277,16 @@ function App() {
                           <div><i class="fa-solid fa-user-tag"></i></div>
                           <div>By: Claire Briley</div>
                           <div className=''>
-                            <button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button>
-                            <button className='mr-3'><i class="fa-regular fa-eye"></i></button>
-                            <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>
+                            <Tooltip title="Edit" arrow><button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
+                            <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                            <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
                           </div>
                       </div>
 {/* ----------EDIT FIELD POPUP--------- */}
 
                     <EditField trigger={buttonEditField} setTrigger= {setButtonEditField}>
                     <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
-                    <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
+                    <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Edit Field</h5>    
                   </div>
 
                   <div class="modal-body relative p-4">
