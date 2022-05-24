@@ -15,6 +15,9 @@ import DeleteGroup from './DeleteGroup';
 import EditGroup from './EditGroup';
 import EditField from './EditField';
 import DeleteField from './DeleteField';
+import ExpandGroup from './ExpandGroup';
+import Collapsible from 'react-collapsible';
+
 //import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,6 +34,12 @@ function App() {
   const [buttonEditGroup, setButtonEditGroup] = useState(false);
   const [buttonEditField, setButtonEditField] = useState(false);
   const [buttonDeleteField, setButtonDeleteField] = useState(false);
+  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
+
+ 
+  
+  
+  
   return (
       <div className="App">
 <Helmet><script src="https://kit.fontawesome.com/1348f1f9e7.js" crossorigin="anonymous"></script></Helmet>
@@ -96,9 +105,11 @@ function App() {
                 <button onClick={() => setButtonAddGroup (true)} className='inline-flex mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
                 </button>
               </Tooltip>
+
+              <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
 {/* ----------ADD GROUP POPUP--------- */}
 
-                  <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}>
+                  {/* AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}>
                   <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
                     <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Group</h5>    
                   </div>
@@ -145,7 +156,7 @@ function App() {
                  </div>
 
                   </AddGroup>
-
+  */}
 
 
 {/* ----------END ADD GROUP POPUP--------- */}
@@ -155,63 +166,69 @@ function App() {
                 </button>
               </Tooltip>
             </div>
+
+            <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
+            
 {/* ----------ADD FIELD POPUP--------- */}
-                  <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}>
-                      <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
-                        <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
-                      </div>
-
-                      <div class="modal-body relative p-4">
-                          <div className='font-semibold text-lg'> Settings</div>
-                          
-                          <div className='grid grid-cols-3 grid-rows-6 gap-3'>
-
-                              <div className='col-span-1 flex text-sm'>Name </div> 
-                              <input type="text" className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
-
-
-                              <div className='col-span-1 flex text-sm content-around'>Scope </div>
-                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
-                              <option>Global</option>
-                              <option>Local</option>
-                              </select>
-
-                              <div className='col-span-1 flex text-sm content-around'>Field Type </div>
-                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
-                                <option>Yes/No</option>
-                                <option>Text</option>
-                                <option>Date</option>
-                                <option>Number</option>
-                                <option>Select</option>
-                                <option>Multi-Select</option>
-                              </select>
-
-
-                              <div className='col-span-1 flex text-sm content-around'>Field Group </div>
-                              <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+               
+                      {/*  <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}>
+                        <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
+                          <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
+                        </div>
+  
+                        <div class="modal-body relative p-4">
+                            <div className='font-semibold text-lg'> Settings</div>
+                            
+                            <div className='grid grid-cols-3 grid-rows-6 gap-3'>
+  
+                                <div className='col-span-1 flex text-sm'>Name </div> 
+                                <input type="text" className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'></input> 
+  
+  
+                                <div className='col-span-1 flex text-sm content-around'>Scope </div>
+                                <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                                 <option>Global</option>
-                              </select>
-    
-                              
-                              <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
-                              <div className='col-span-2 flex text-sm content-around'>Quick Search</div>
-                             
-    
-                              
-                              
-                              <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
-                              <div className='col-span-2 flex text-sm content-around'>Include Family (tagging)</div>
-                              
-                                                         
-                          </div>
-
-                          <div className='flex justify-end mt-8'>
-                            <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
-                            <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
-                          </div>
-
-                      </div>
-                  </AddField>
+                                <option>Local</option>
+                                </select>
+  
+                                <div className='col-span-1 flex text-sm content-around'>Field Type </div>
+                                <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm text-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                                  <option>Yes/No</option>
+                                  <option>Text</option>
+                                  <option>Date</option>
+                                  <option>Number</option>
+                                  <option>Select</option>
+                                  <option>Multi-Select</option>
+                                </select>
+  
+  
+                                <div className='col-span-1 flex text-sm content-around'>Field Group </div>
+                                <select className='col-span-2 mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
+                                  <option>Global</option>
+                                </select>
+      
+                                
+                                <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                                <div className='col-span-2 flex text-sm content-around'>Quick Search</div>
+                               
+      
+                                
+                                
+                                <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                                <div className='col-span-2 flex text-sm content-around'>Include Family (tagging)</div>
+                                
+                                                           
+                            </div>
+  
+                            <div className='flex justify-end mt-8'>
+                              <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                              <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
+                            </div>
+  
+                        </div>
+                         </AddField>
+  */}
+                 
 {/* ----------END ADD FIELD POPUP--------- */}
 
 
@@ -259,32 +276,40 @@ function App() {
                 <div className=''><i class="fa-solid fa-bars"></i></div>
                     <div>USER CREATED <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
               </div>
-                  <div className=''> 
-                      <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
-                      <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button></Tooltip>
-                      <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                      <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                      <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
+                  <div className='flex inline-block text-right justify-end'> 
+                     
+                        <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
+                        <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid fa-trash-can"></i></button></Tooltip>
+                        <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                        <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                      
+                      <Tooltip title="Expand" arrow><button onClick={() => setButtonExpandGroup (true)} className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
   
                   </div>
 
                       
                   </div>
 
-                  <div className='border border-grey-300 mt-2 flex justify-between'>
-                          <div className='ml-2'><i class="fa-solid fa-bars mr-2"></i>USER CREATED Field 1</div>
-                          <div>Yes/No</div>
-                          <div><i class="fa-solid fa-user-tag"></i></div>
-                          <div>By: Claire Briley</div>
-                          <div className=''>
-                            <Tooltip title="Edit" arrow><button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
-                            <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                            <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                  <ExpandGroup trigger={buttonExpandGroup} setTrigger= {setButtonExpandGroup} />
+                  
+                 
+  {/*
+                      <div className='border border-grey-300 mt-2 flex justify-between'>
+                              <div className='ml-2'><i class="fa-solid fa-bars mr-2"></i>USER CREATED Field 1</div>
+                              <div>Yes/No</div>
+                              <div><i class="fa-solid fa-user-tag"></i></div>
+                              <div>By: Claire Briley</div>
+                              <div className=''>
+                                <Tooltip title="Edit" arrow><button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
+                                <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                                <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                              </div>
                           </div>
-                      </div>
+  */}
+                 
 {/* ----------EDIT FIELD POPUP--------- */}
 
-                    <EditField trigger={buttonEditField} setTrigger= {setButtonEditField}>
+                   {/* <EditField trigger={buttonEditField} setTrigger= {setButtonEditField}>
                     <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
                     <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Edit Field</h5>    
                   </div>
@@ -339,12 +364,12 @@ function App() {
                       </div>
 
                   </div>
-                    </EditField>
+</EditField>*/}
 
 {/* ----------END EDIT FIELD POPUP--------- */}
 
 {/* ----------Delete FIELD Confirmation POPUP--------- */}
-                  <DeleteField trigger={buttonDeleteField} setTrigger= {setButtonDeleteField}>
+                 {/* <DeleteField trigger={buttonDeleteField} setTrigger= {setButtonDeleteField}>
                     <div className="modal-header p-4 border-b flex border-gray-200">
                       <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Field</h5>    
                     </div>
@@ -362,12 +387,14 @@ function App() {
                     </div>
 
 
-                  </DeleteField>
+</DeleteField>*/}
 
 {/* ----------Delete FIELD Confirmation POPUP--------- */}
 
 {/* ----------Delete Group POPUP--------- */}
-                <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}>
+
+
+               {/* <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}>
                   <div className="modal-header flex p-4 border-b border-gray-200">
                     <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Group</h5>    
                   </div>
@@ -386,11 +413,13 @@ function App() {
 
 
                 </DeleteGroup>
+*/}
 {/* ----------END Delete Group POPUP--------- */}
 
 {/* ----------EDIT FIELD Group POPUP--------- */}
+<EditGroup trigger={buttonEditGroup} setTrigger= {setButtonEditGroup}/>
 
-<EditGroup trigger={buttonEditGroup} setTrigger= {setButtonEditGroup}>
+{/*EditGroup trigger={buttonEditGroup} setTrigger= {setButtonEditGroup}>
 <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
   <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Edit: USER CREATED</h5>    
 </div>
@@ -437,6 +466,7 @@ function App() {
 </div>
 
 </EditGroup>
+*/}
 
 {/* ----------END EDIT FIELD Group POPUP--------- */}
 
@@ -445,7 +475,9 @@ function App() {
   
             </div>
           </div>
+          
           </Popup>
+          <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}/>
 {/* ----------END MODIFY FIELDS POPUP--------- */}
 
 
