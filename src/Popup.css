@@ -8,12 +8,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Open Sans', sans-serif;
 
 }
 
 .popup-inner{
-    /* position: relative; */
-    /* padding: 32px; */
+    position: relative; 
+    padding: 16px;
     /* width: 100%; */
     max-width: 800px;
     /* background-color: #fff; */
@@ -22,6 +23,6 @@
 
 .popup-inner .close-btn{
     position: absolute;
-    top: 7px;
+    top: 5px;
     right: 16px;
 }
