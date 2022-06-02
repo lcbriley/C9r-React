@@ -1,5 +1,6 @@
 //import logo from './logo.svg';
 import './App.css';
+
 import Tooltip from '@mui/material/Tooltip';
 //import {AddField} from './AddField';
 //import Main from './Main.js'
@@ -9,6 +10,8 @@ import {Helmet} from "react-helmet";
 //import React, { Component } from 'react'
 //import Collapsible from 'react-collapsible';
 import Popup from './Popup';
+import Visibility from './visibility';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 //import {DragDropContext, Droppable} from 'react-beautiful-dnd';
@@ -17,10 +20,54 @@ import Popup from './Popup';
 //import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
+const Groups = [
+  {
+    id: 'global',
+    name: 'Global',
+    count: 3,
+    
+  
+  },
+  {
+    id: 'private',
+    name: 'Private',
+    count: 4,
+  },
+  {
+    id: 'system',
+    name: 'System',
+    count: 7,
+  },
+  {
+    id: 'generated',
+    name: 'USER CREATED',
+   count: 3,
+  },
+  
+  
+]
+
 
 
 function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [characters, updateCharacters] = useState(Groups);
+  
+
+ const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
+  const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
+  const [buttonEditGroup, setButtonEditGroup] = useState(false);
+  
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    const items = Array.from(characters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    updateCharacters(items);
+  }
+
 
   
   return (
@@ -62,21 +109,16 @@ function App() {
             </div>
           </div>
         </nav>
-  
-  
-  
+
           <div className="mx-5 mt-5 flex justify-between">  
             <h1 className="text-bold"><strong>My Projects</strong></h1>
             <button className="bg-sky-500 rounded-sm p-1 text-white ">Upload Data</button>
           </div>
 
           <hr className="mt-4"/>
-
-
           <button className="bg-gradient-to-r from-light-blue to-dark-blue text-white font-bold py-2 px-4 rounded" onClick={() => setButtonPopup(true)}>Open Popup</button>
           <Popup trigger={buttonPopup} setTrigger= {setButtonPopup}/>
-        
-  
+
         <div className="flex justify-center mt-5">
           <p className=" text-sm">
             <span className="text-slate-500">Sort By- </span>
@@ -161,7 +203,64 @@ function App() {
   
           </div>
         </div>
+      
+
+        
+       
+         {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="characters">
+              {(provided) => (
+                <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
+                  {characters.map(({id, name, thumb, count}, index) => {
+                    return (
+                     
+                        <Draggable key={id} draggableId={id} index={index}>
+                          {(provided) => (
+                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                              
+                              <div className='global-section border-b text-left py-3 justify-between flex'>
+                          <div className='justify-start space-x-4 flex'>
+                            <div className=''><i class="fa-solid fa-bars"></i></div>
+                              <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
+                          </div>
+                            <div className='inline-flex'> 
+                              <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
+                              <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                              <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
+                            </div>
+                        </div>
+                            </li>
+                            
+                          )}
+                        </Draggable>
+            
+                        
+                                );
+                              })}
+                              {provided.placeholder}
+                            </ul>
+                          )}
+                        </Droppable>
+                      </DragDropContext>
+                      
+                            */ }
+
+
+<Visibility/>
+
+
+
+
+
+
+
+
+    
       </div>
+
+
+   
+
     
   );
 }
