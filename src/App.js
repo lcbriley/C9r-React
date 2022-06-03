@@ -11,62 +11,28 @@ import {Helmet} from "react-helmet";
 //import Collapsible from 'react-collapsible';
 import Popup from './Popup';
 import Visibility from './visibility';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
-//import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+
 
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 //import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
-const Groups = [
-  {
-    id: 'global',
-    name: 'Global',
-    count: 3,
-    
-  
-  },
-  {
-    id: 'private',
-    name: 'Private',
-    count: 4,
-  },
-  {
-    id: 'system',
-    name: 'System',
-    count: 7,
-  },
-  {
-    id: 'generated',
-    name: 'USER CREATED',
-   count: 3,
-  },
-  
-  
-]
+
 
 
 
 function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const [characters, updateCharacters] = useState(Groups);
+ 
   
 
  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
   const [buttonEditGroup, setButtonEditGroup] = useState(false);
   
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
-
-    const items = Array.from(characters);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    updateCharacters(items);
-  }
+  
 
 
   
@@ -207,46 +173,10 @@ function App() {
 
         
        
-         {/* <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="characters">
-              {(provided) => (
-                <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                  {characters.map(({id, name, thumb, count}, index) => {
-                    return (
-                     
-                        <Draggable key={id} draggableId={id} index={index}>
-                          {(provided) => (
-                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                              
-                              <div className='global-section border-b text-left py-3 justify-between flex'>
-                          <div className='justify-start space-x-4 flex'>
-                            <div className=''><i class="fa-solid fa-bars"></i></div>
-                              <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
-                          </div>
-                            <div className='inline-flex'> 
-                              <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                              <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                              <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
-                            </div>
-                        </div>
-                            </li>
-                            
-                          )}
-                        </Draggable>
-            
-                        
-                                );
-                              })}
-                              {provided.placeholder}
-                            </ul>
-                          )}
-                        </Droppable>
-                      </DragDropContext>
-                      
-                            */ }
+       
 
 
-<Visibility/>
+
 
 
 
