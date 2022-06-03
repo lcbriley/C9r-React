@@ -19,7 +19,7 @@ class Visiblity extends Component {
    
     this.state = {
         isToggleOn: true,
-        activeCollapse: 'circulars',
+        activeCollapse: this.Groups,
         characters: 'Groups',
         eye: <i class="fa-regular fa-eye"></i>,
         Groups: [
@@ -69,12 +69,12 @@ class Visiblity extends Component {
  handleOnDragEnd = (result) => {
    
     if (!result.destination) return;
-  
+    //const updateCharacters = this.setState(this.state.Groups)
     const items = Array.from(this.state.Groups);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
   
-    this.state.updateCharacters(items);
+    //updateCharacters(items);
   }
 
 
@@ -88,7 +88,10 @@ class Visiblity extends Component {
     }
   }
 
- 
+  moreInfoClick = (e) => {
+    e.stopPropagation();
+    console.log("clicked");
+  }
   
   render() {
     return (
@@ -97,7 +100,7 @@ class Visiblity extends Component {
           <div className="sidebar-nav-menu">
 
             
-          <div className={`sidebar-nav-menu-item block ${this.state.activeCollapse === "circulars" ? 'item-active' : ''}`} onClick={() => this.handleExpandCollaps("circulars")} data-id="circulars" >
+          <div className={`sidebar-nav-menu-item block ${this.state.activeCollapse === this.state.Groups.id ? 'item-active' : ''}`}  >
           <div className="sidebar-nav-menu-item-head relative p-2.5 mb-1">
             <span className="sidebar-nav-menu-item-head-title">
             <DragDropContext onDragEnd={this.handleOnDragEnd}>
@@ -120,7 +123,7 @@ class Visiblity extends Component {
                 <Tooltip title="Delete" arrow><button  className='mr-3'><i class="fa-solid fa-trash-can"></i></button></Tooltip>
                 <Tooltip title="Visiblity" arrow><button onClick={this.changeEye} className='mr-3'>{ this.state.isToggleOn ? <i class="fa-regular fa-eye"></i> : <i class="fa-regular fa-eye-slash"></i> } </button></Tooltip>
                 <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                <Tooltip title="Expand" arrow><button  className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
+                <Tooltip title="Expand" arrow><button onClick={() => this.handleExpandCollaps(this.state.Groups.id)} data-id= {this.state.Groups.id} className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
 
               </div>
 

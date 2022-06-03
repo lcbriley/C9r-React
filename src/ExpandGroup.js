@@ -15,7 +15,7 @@ function ExpandGroup(props) {
       <div>
       
       <div className='border border-grey-300 mt-3 flex justify-between'>
-                            <div className='ml-2'><i class="fa-solid fa-bars mr-2"></i>USER CREATED Field 1</div>
+                            <div className='ml-2'><span className='pr-2'><i class="fa-solid fa-bars"></i></span>USER CREATED Field 1</div>
                             <div>Yes/No</div>
                             <div><i class="fa-solid fa-user-tag"></i></div>
                             <div>By: Claire Briley</div>

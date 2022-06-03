@@ -1,4 +1,4 @@
-import { Icon, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import React from 'react'
 
 import './Popup.css'
@@ -10,16 +10,16 @@ import EditGroup from './EditGroup';
 //import EditField from './EditField';
 //import DeleteField from './DeleteField';
 import ExpandGroup from './ExpandGroup';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+//import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Visiblity from './visibility';
-//import CheckBox from './visibility';
 
 
 
 
 
 
-const Groups = [
+
+{/*const Groups = [
   {
     id: 'global',
     name: 'Global',
@@ -43,7 +43,7 @@ const Groups = [
   },
   
   
-]
+]*/}
 
 
 
@@ -67,18 +67,18 @@ function Popup(props) {
 
 
 
-  const [characters, updateCharacters] = useState(Groups);
+ // const [characters, updateCharacters] = useState(Groups);
 
 
-  function handleOnDragEnd(result) {
-    if (!result.destination) return;
+  //function handleOnDragEnd(result) {
+  //  if (!result.destination) return;
 
-    const items = Array.from(characters);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+  //  const items = Array.from(characters);
+  //  const [reorderedItem] = items.splice(result.source.index, 1);
+  //  items.splice(result.destination.index, 0, reorderedItem);
 
-    updateCharacters(items);
-  }
+   // updateCharacters(items);
+ // }
 
  
   
@@ -91,15 +91,15 @@ function Popup(props) {
 
             <div className="" trigger={buttonPopup} setTrigger= {setButtonPopup}>
       
-              <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200">
-                <h5 className="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Modify Fields</h5>    
+              <div className="modal-header flex p-4 border-b border-gray-200">
+                <h5 className="text-xl leading-normal text-gray-800" >Modify Fields</h5>    
               </div>
                 <div class="modal-body relative p-4 ">
-                  <div className='add-btns flex items-end mt-3'>
+                  <div className='add-btns flex mt-3'>
 
 
                     <Tooltip title="Add Group" arrow>
-                      <button onClick={() => setButtonAddGroup (true)} className='inline-flex mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
+                      <button onClick={() => setButtonAddGroup (true)} className=' mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
                       </button>
                     </Tooltip>
 
@@ -107,7 +107,7 @@ function Popup(props) {
 
 
                     <Tooltip title="Add Field" arrow>
-                      <button onClick={() => setButtonAddField (true)} className='inline-flex '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
+                      <button onClick={() => setButtonAddField (true)} className=' '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
                       </button>
                     </Tooltip>
                   </div>
