@@ -15,7 +15,7 @@ function AddField(props) {
           <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Create New Field</h5>    
         </div>
 
-        <div class="modal-body relative p-4">
+        <div className="modal-body relative p-4">
             <div className='font-semibold text-lg'> Settings</div>
             
             <div className='grid grid-cols-3 grid-rows-6 gap-3'>

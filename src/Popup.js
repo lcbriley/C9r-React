@@ -19,31 +19,6 @@ import Visiblity from './visibility';
 
 
 
-{/*const Groups = [
-  {
-    id: 'global',
-    name: 'Global',
-    count: 3,
-
-  },
-  {
-    id: 'private',
-    name: 'Private',
-    count: 4,
-  },
-  {
-    id: 'system',
-    name: 'System',
-    count: 7,
-  },
-  {
-    id: 'generated',
-    name: 'USER CREATED',
-   count: 3,
-  },
-  
-  
-]*/}
 
 
 
@@ -87,35 +62,36 @@ function Popup(props) {
    
     <div className='popup fixed flex top-0 left-0 w-full h-screen justify-center items-center'>
       <div className='popup-inner relative bg-white w-full max-w-2xl p-4'>
-          <Tooltip title="Close" arrow><button className="close-btn absolute top-3 right-4 bg-white font-semibold py-2 px-4" onClick={() => props.setTrigger(false)}>X</button></Tooltip>
+          <Tooltip title="Close" arrow><button className="close-btn absolute top-4 right-4 bg-white font-semibold py-2 px-4" onClick={() => props.setTrigger(false)}>X</button></Tooltip>
 
             <div className="" trigger={buttonPopup} setTrigger= {setButtonPopup}>
       
-              <div className="modal-header flex p-4 border-b border-gray-200">
-                <h5 className="text-xl leading-normal text-gray-800" >Modify Fields</h5>    
+              <div className="flex flex-shrink-0 items-center justify-between p-1 border-b border-gray-200">
+                <h5 className="text-lg mb-2 font-medium leading-normal text-gray-800" >Modify Fields</h5>    
               </div>
-                <div class="modal-body relative p-4 ">
-                  <div className='add-btns flex mt-3'>
+                <div className="modal-body relative p-4 ">
+                  <div className='add-btns flex justify-end mt-1'>
 
 
                     <Tooltip title="Add Group" arrow>
-                      <button onClick={() => setButtonAddGroup (true)} className=' mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
+                      <button onClick={() => setButtonAddGroup (true)} className=' mr-3'><span><i className="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
                       </button>
                     </Tooltip>
 
-                    <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
+                   
 
 
                     <Tooltip title="Add Field" arrow>
-                      <button onClick={() => setButtonAddField (true)} className=' '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
+                      <button onClick={() => setButtonAddField (true)} className=' '><span><i className="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
                       </button>
                     </Tooltip>
                   </div>
-
-                    <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
-
-
+                    
                     <Visiblity/>
+
+                    
+                    <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
+                    <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
 
                     {/*<DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="characters">

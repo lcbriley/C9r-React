@@ -22,12 +22,12 @@ h1, p {
   
   
   .sidebar-nav-menu-item-head{
-    /*To style header
+    /*To style header*/
      
-     color: #000;
-     margin-bottom: 5px;
-     padding: 10px;
-     position: relative;*/
+     /* color: #000; */
+     /* margin-bottom: 5px; */
+     /* padding: 10px; */
+     /* position: relative; */
   }
   
   .sidebar-nav-menu-item-head:after {

@@ -15,7 +15,7 @@ function DeleteField(props) {
                       <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Delete Field</h5>    
                     </div>
 
-                    <div class="modal-body relative p-4">
+                    <div className="modal-body relative p-4">
 
                       <div className='text-center text-xl mt-3'><i class="fa-solid fa-triangle-exclamation fa-xl text-red-600"></i> This action is permanent... </div>
 

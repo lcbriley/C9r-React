@@ -16,7 +16,7 @@ function EditField(props) {
                     <h5 className="text-lg font-medium leading-normal text-gray-800" id="exampleModalLabel">Edit Field</h5>    
                   </div>
                   
-                  <div class="modal-body relative p-4">
+                  <div className="modal-body relative p-4">
                       <div className='font-semibold text-lg'> Settings</div>
                       
                       <div className='grid grid-cols-3 grid-rows-6 gap-3'>
@@ -46,10 +46,10 @@ function EditField(props) {
                             <option>Global</option>
                           </select>
                         
-                          <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                          <input type="checkbox" id="quickSearch" name="quickSearch" value="quick" className="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
                           <div className='col-span-2 flex text-sm content-around'>Quick Search</div>
 
-                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
+                          <input type="checkbox" id="includeFamily" name="includeFamily" value="include" className="col-span-1 border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-2" />
                           <div className='col-span-2 flex text-sm content-around'>Include Family (tagging)</div>
                            
                       </div>

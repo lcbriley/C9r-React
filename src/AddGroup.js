@@ -38,7 +38,7 @@ function AddGroup(props) {
                             <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
                             <div>
                               <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
-                              <button><i class="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
+                              <button><i className="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
                             </div>
                             
                             <div className='mr-5'>0</div>

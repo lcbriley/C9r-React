@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 //import { render } from 'react-dom';
 import ExpandGroup from './ExpandGroup';
 import './style.css';
-import { useState } from 'react';
+//import { useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
 
 
  
@@ -20,8 +21,10 @@ class Visiblity extends Component {
     this.state = {
         isToggleOn: true,
         activeCollapse: this.Groups,
-        characters: 'Groups',
-        eye: <i class="fa-regular fa-eye"></i>,
+        characters: "",
+        updateCharacters: "",
+        editGroupBtn: "",
+        eye: <i className="fa-regular fa-eye"></i>,
         Groups: [
   
           {
@@ -51,6 +54,8 @@ class Visiblity extends Component {
     };
 
     this.changeEye = this.changeEye.bind(this);
+    this.handleOnDragEnd = this.handleOnDragEnd.bind(this);
+   
   }
 
   //changeEye = () => {
@@ -66,16 +71,23 @@ class Visiblity extends Component {
     }));
   }
 
- handleOnDragEnd = (result) => {
-   
-    if (!result.destination) return;
-    //const updateCharacters = this.setState(this.state.Groups)
-    const items = Array.from(this.state.Groups);
+  
+
+  
+  handleOnDragEnd  (result) {
+    
+    if (!result.destination){ return;}
+    
+    const items = Array.from(this.state.characters);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
   
-    //updateCharacters(items);
+    //this.state.updateCharacters(items);
   }
+    
+  
+
+ 
 
 
   handleExpandCollaps = (name) => {
@@ -94,6 +106,7 @@ class Visiblity extends Component {
   }
   
   render() {
+    
     return (
       <div>
         <div className="sidebar-nav">
@@ -101,7 +114,7 @@ class Visiblity extends Component {
 
             
           <div className={`sidebar-nav-menu-item block ${this.state.activeCollapse === this.state.Groups.id ? 'item-active' : ''}`}  >
-          <div className="sidebar-nav-menu-item-head relative p-2.5 mb-1">
+          <div className="sidebar-nav-menu-item-head relative my-1">
             <span className="sidebar-nav-menu-item-head-title">
             <DragDropContext onDragEnd={this.handleOnDragEnd}>
             <Droppable droppableId="characters">
@@ -111,19 +124,19 @@ class Visiblity extends Component {
                     return (
             <Draggable key={id} draggableId={id} index={index}>
             {(provided) => (
-              <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-            <div className='global-section border-b text-left py-3 justify-between flex'>
-              <div className='justify-start space-x-4 flex'>
-                <div className=''><i class="fa-solid fa-bars"></i></div>
+              <li className='' ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+            <div className='global-section flex border-b text-left py-3 justify-between'>
+              <div className='justify-start space-x-3 flex'>
+                <div className='mr-1'><i className="fa-solid fa-bars"></i></div>
                 <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
               </div>
-              <div className='flex inline-block text-right justify-end'> 
+              <div className='buttons flex inline-block text-right justify-end'> 
                   
-                <Tooltip ><button className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
-                <Tooltip title="Delete" arrow><button  className='mr-3'><i class="fa-solid fa-trash-can"></i></button></Tooltip>
-                <Tooltip title="Visiblity" arrow><button onClick={this.changeEye} className='mr-3'>{ this.state.isToggleOn ? <i class="fa-regular fa-eye"></i> : <i class="fa-regular fa-eye-slash"></i> } </button></Tooltip>
-                <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                <Tooltip title="Expand" arrow><button onClick={() => this.handleExpandCollaps(this.state.Groups.id)} data-id= {this.state.Groups.id} className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
+                <Tooltip ><button className='mr-3' ><i className="fa-solid fa-pencil"></i></button></Tooltip>
+                <Tooltip title="Delete" arrow><button  className='mr-3'><i className="fa-solid fa-trash-can"></i></button></Tooltip>
+                <Tooltip title="Visiblity" arrow><button onClick={this.changeEye} className='mr-3'>{ this.state.isToggleOn ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i> } </button></Tooltip>
+                <Tooltip title="Move to Top" arrow><button className='mr-3'><i className="fa-solid fa-arrow-up"></i></button></Tooltip>
+                <Tooltip title="Expand" arrow><button onClick={() => this.handleExpandCollaps(this.state.Groups.id)} data-id= {this.state.Groups.id} className='mr-3'><i className="fa-solid fa-angle-down"></i></button></Tooltip>
 
               </div>
 
