@@ -74,7 +74,7 @@ function Popup(props) {
 
 
                     <Tooltip title="Add Group" arrow>
-                      <button onClick={() => setButtonAddGroup (true)} className=' mr-3'><span><i className="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
+                      <button onClick={() => setButtonAddGroup (true)} className=' mr-3'><span><i class="fa-solid fa-layer-group fa-lg mr-1"></i></span> Add Group
                       </button>
                     </Tooltip>
 
@@ -82,14 +82,14 @@ function Popup(props) {
 
 
                     <Tooltip title="Add Field" arrow>
-                      <button onClick={() => setButtonAddField (true)} className=' '><span><i className="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
+                      <button onClick={() => setButtonAddField (true)} className=' '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
                       </button>
                     </Tooltip>
                   </div>
                     
                     <Visiblity/>
 
-                    
+
                     <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
                     <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
 

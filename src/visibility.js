@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import { render } from 'react-dom';
 import ExpandGroup from './ExpandGroup';
+//import handleMoveTop from './moveTop';
 import './style.css';
 //import { useState } from 'react';
 import { Tooltip } from '@mui/material';
@@ -23,7 +24,9 @@ class Visiblity extends Component {
         activeCollapse: this.Groups,
         characters: "",
         updateCharacters: "",
-        editGroupBtn: "",
+        editGroup: '',
+        MoveTop: "",
+        visMoveTop: this.Groups,
         eye: <i className="fa-regular fa-eye"></i>,
         Groups: [
   
@@ -50,15 +53,16 @@ class Visiblity extends Component {
           },
           
           
-        ]
+        ],
+        
     };
-
+    
     this.changeEye = this.changeEye.bind(this);
     this.handleOnDragEnd = this.handleOnDragEnd.bind(this);
    
   }
 
-  //changeEye = () => {
+ //changeEye = () => {
     //this.setState({eye: <i class="fa-regular fa-eye-slash"></i>});
    // this.setState(prevState => ({
    //   iover: !prevState.iover
@@ -71,7 +75,7 @@ class Visiblity extends Component {
     }));
   }
 
-  
+ 
 
   
   handleOnDragEnd  (result) {
@@ -100,6 +104,20 @@ class Visiblity extends Component {
     }
   }
 
+
+
+handleMoveTop = () =>{
+  let {visMoveTop } = this.Groups.id;
+    
+  if (visMoveTop) {
+    this.setState({MoveTop: <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button>});
+} else {
+  this.setState({MoveTop:''});
+}
+}
+
+
+
   moreInfoClick = (e) => {
     e.stopPropagation();
     console.log("clicked");
@@ -107,6 +125,8 @@ class Visiblity extends Component {
   
   render() {
     
+    
+     
     return (
       <div>
         <div className="sidebar-nav">
@@ -127,16 +147,20 @@ class Visiblity extends Component {
               <li className='' ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
             <div className='global-section flex border-b text-left py-3 justify-between'>
               <div className='justify-start space-x-3 flex'>
-                <div className='mr-1'><i className="fa-solid fa-bars"></i></div>
+                <div className='mr-1'><i class="fa-solid fa-bars"></i></div>
                 <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
               </div>
               <div className='buttons flex inline-block text-right justify-end'> 
                   
-                <Tooltip ><button className='mr-3' ><i className="fa-solid fa-pencil"></i></button></Tooltip>
-                <Tooltip title="Delete" arrow><button  className='mr-3'><i className="fa-solid fa-trash-can"></i></button></Tooltip>
-                <Tooltip title="Visiblity" arrow><button onClick={this.changeEye} className='mr-3'>{ this.state.isToggleOn ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i> } </button></Tooltip>
-                <Tooltip title="Move to Top" arrow><button className='mr-3'><i className="fa-solid fa-arrow-up"></i></button></Tooltip>
-                <Tooltip title="Expand" arrow><button onClick={() => this.handleExpandCollaps(this.state.Groups.id)} data-id= {this.state.Groups.id} className='mr-3'><i className="fa-solid fa-angle-down"></i></button></Tooltip>
+              
+              
+              <Tooltip ><button className='mr-3' ><i className="fa-solid fa-pencil"></i></button></Tooltip>
+              <Tooltip title="Delete" arrow><button  className='mr-3'><i className="fa-solid fa-trash-can"></i></button></Tooltip>
+              <Tooltip title="Visiblity" arrow><button onClick={this.changeEye} className='mr-3'>{ this.state.isToggleOn ? <i className="fa-regular fa-eye"></i> : <i className="fa-regular fa-eye-slash"></i> } </button></Tooltip>
+
+              <Tooltip title="Move to Top" arrow>{this.handleMoveTop ? <button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button> :''}</Tooltip>
+            
+              <Tooltip title="Expand" arrow><button onClick={() => this.handleExpandCollaps(this.state.Groups.id)} data-id= {this.state.Groups.id} className='mr-3'><i className="fa-solid fa-angle-down"></i></button></Tooltip>
 
               </div>
 
@@ -169,6 +193,7 @@ class Visiblity extends Component {
 
           </div>
         </div>
+  
       </div>
     );
   }

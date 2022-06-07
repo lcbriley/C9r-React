@@ -60,7 +60,7 @@ function EditField(props) {
                         <button onClick={() => setButtonDeleteField (true)} className='rounded border border-grey-200 py-1 px-2.5 text-red-600 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Delete Field </button>
 
                         <div>
-                          <button className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
+                          <button onClick={() => props.setTrigger(false)} className='rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Cancel </button>
                           <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
                         </div>
                       </div>
