@@ -10,7 +10,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
  
-//const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
+
 
 class Visiblity extends Component {
  
@@ -58,16 +58,11 @@ class Visiblity extends Component {
     };
     
     this.changeEye = this.changeEye.bind(this);
-    this.handleOnDragEnd = this.handleOnDragEnd.bind(this);
+    //this.handleOnDragEnd = this.handleOnDragEnd.bind(this);
    
   }
 
- //changeEye = () => {
-    //this.setState({eye: <i class="fa-regular fa-eye-slash"></i>});
-   // this.setState(prevState => ({
-   //   iover: !prevState.iover
-   // }));
- // }
+ 
 
   changeEye() {
     this.setState(prevState => ({
@@ -78,20 +73,24 @@ class Visiblity extends Component {
  
 
   
-  handleOnDragEnd  (result) {
+  // handleOnDragEnd  (result) {
     
-    if (!result.destination){ return;}
+  //   if (!result.destination){ return;}
     
-    const items = Array.from(this.state.characters);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+  //   const items = Array.from(characters);
+  //   const [reorderedItem] = items.splice(result.source.index, 1);
+  //   items.splice(result.destination.index, 0, reorderedItem);
   
-    //this.state.updateCharacters(items);
-  }
+  //  updateCharacters(items);
+  // }
     
-  
-
+  handleOnDragEnd(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex];
+    var a = arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+}
  
+   
 
 
   handleExpandCollaps = (name) => {

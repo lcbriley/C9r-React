@@ -14,7 +14,7 @@ function ExpandGroup(props) {
     return (props.trigger) ? (
       <div>
       
-      <div className='mt-1 ml-4 flex justify-between'>
+      <div className='mt-1 ml-4 flex justify-between border-b pb-2'>
                             <div className=''><span className=''><i class="fa-solid fa-bars mr-3"></i></span>USER CREATED Field 1</div>
                             <div>Yes/No</div>
                             <div><i class="fa-solid fa-user-tag"></i></div>

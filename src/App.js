@@ -26,7 +26,7 @@ import Popup from './Popup';
 function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
  
-  
+
 
 //  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
 //   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
@@ -172,15 +172,9 @@ function App() {
       
 
         
+   
        
-       
-
-
-
-
-
-
-
+);
 
 
 
