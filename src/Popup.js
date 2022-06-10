@@ -21,22 +21,26 @@ const Groups= [
     id: "1",
     name: 'Global',
     count: 3,
+    userCreated: 1,
 
   },
   {
     id: "2",
     name: 'Private',
     count: 4,
+    userCreated: 1,
   },
   {
     id: "3",
     name: 'System',
     count: 7,
+    userCreated: 1,
   },
   {
     id: "4",
     name: 'USER CREATED',
-   count: 3,
+    count: 3,
+    userCreated: 2,
   },
   
   
@@ -106,6 +110,7 @@ const [isEyeChanged, setIsEyeChanged] = useToggle();
 const [isArrowChanged, setIsArrowChanged] = useToggle();
   
 
+
   return (props.trigger) ? (
    
     <div className='popup fixed flex top-0 left-0 w-full h-screen justify-center items-center'>
@@ -145,7 +150,7 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
             <Droppable droppableId="characters">
               {(provided) => (
                 <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                  {characters.map(({id, name, count}, index) => {
+                  {characters.map(({id, name, count, userCreated}, index) => {
                     return (
                      
                         <Draggable key={id} draggableId={id} index={index}>
@@ -158,13 +163,23 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                               <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
                           </div>
                             <div className='inline-flex'> 
-                              <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
-                              <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip>
+                              {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
+
+                              {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
+                              
                               <Tooltip title="Visiblity" arrow><button className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button></Tooltip>
+
                               <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+
                               <Tooltip title="Expand" arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>
                               
                               
+                          {/*   <Tooltip title="Expand" arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>*/}
+
+
+
+
+
                         {/*    <Accordion title= {<Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>}>
                           
                               Sunlight reaches Earth's atmosphere and is scattered in all directions by
@@ -186,7 +201,7 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                         </div>}>
                         <div className='mt-2'>
                         
-                        <ExpandGroup trigger={Accordion}/>
+                        <ExpandGroup trigger={Accordion} />
                         
                         
                         </div>

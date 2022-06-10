@@ -1,10 +1,61 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import FieldCheckbox from './FieldCheckbox';
+import { FieldList } from './FieldList';
+
+
 //import Tooltip from '@mui/material/Tooltip';
 
 
 function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
+
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    setList(FieldList);
+  }, [list]);
+
+  const handleSelectAll = e => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(list.map(li => li.id));
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = e => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+
+  console.log(isCheck);
+
+  const catalog = list.map(({ id, name }) => {
+    return (
+      
+        <div className= "mt-2 ml-3 flex">
+          <FieldCheckbox 
+            key={id}
+            type="checkbox"
+            name={name}
+            id={id}
+            handleClick={handleClick}
+            isChecked={isCheck.includes(id)}
+          />
+         <span className='ml-2 align-middle'> {name}</span>
+        </div>
+     
+    );
+  });
+
+
+
     return (props.trigger) ? (
       <div className='popup fixed flex top-0 left-0 w-full h-screen justify-center items-center'>
         <div className='popup-inner relative bg-white w-full max-w-2xl '>
@@ -35,7 +86,13 @@ function AddGroup(props) {
                           <div className='text-center p-2 font-semibold'>Field Selection</div>
 
                           <div className='flex justify-between ml-3 mt-1 mb-3'>
-                            <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+                            <div>
+                              <input type="checkbox" id="selectAll" name="selectAll" handleClick = {handleSelectAll} isChecked={isCheckAll} value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+                             
+                            </div>
+                            
+                            
+                            
                             <div>
                               <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
                               <button><i className="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
@@ -44,7 +101,13 @@ function AddGroup(props) {
                             <div className='mr-5'>0</div>
                           </div>
                       </div>
-                     
+
+                      {catalog}
+
+      
+
+
+                    
                     </div>
 
                     <div className='flex justify-end mt-8'>
@@ -61,5 +124,5 @@ function AddGroup(props) {
       </div>
     ) :"";
   }
-
+    
 export default AddGroup
