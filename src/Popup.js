@@ -100,12 +100,18 @@ function Popup(props) {
 
 //Eye & Arrow icon toggle
 
- const useToggle = (initialState = false) => {
+
+
+//  const useToggle = (initialState = false) => {
+//   const [state, setState] = useState(initialState);
+//   const toggle = useCallback(() => setState(state => !state), []);
+//   return [state, toggle]
+// }
+const useToggle = (initialState = false) => {
   const [state, setState] = useState(initialState);
-  const toggle = useCallback(() => setState(state => !state), []);
+  const toggle = useCallback(() => setState(state => !state ), []);
   return [state, toggle]
 }
-
 const [isEyeChanged, setIsEyeChanged] = useToggle();
 const [isArrowChanged, setIsArrowChanged] = useToggle();
   
@@ -167,7 +173,9 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
 
                               {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
                               
-                              <Tooltip title="Visiblity" arrow><button className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button></Tooltip>
+                              <Tooltip title="Visiblity" arrow>
+                                <button className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                              </Tooltip>
 
                               <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
 
