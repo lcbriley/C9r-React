@@ -2,11 +2,15 @@ import React from 'react'
 import { useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import FieldTypeInfo from './FieldTypeInfo';
+import FieldGroupInfo from './FieldGroupInfo';
+import FamilyTaggingInfo from './IncludeFamTagInfo';
 
 
 function AddField(props) {
   const [buttonAddField, setButtonAddField] = useState(false);
   const [buttonFieldTypeInfo, setButtonFieldTypeInfo] = useState(false);
+  const [buttonFieldGroupInfo, setButtonFieldGroupInfo] = useState(false);
+  const [buttonFamilyTaggingInfo, setButtonFamilyTaggingInfo] = useState(false);
 
     return (props.trigger) ? (
       <div className='popup fixed flex top-0 left-0 w-full h-screen justify-center items-center'>
@@ -43,7 +47,7 @@ function AddField(props) {
                 </select>
 
 
-                <div className='col-span-1 flex text-sm content-around'>Field Group: <span className='ml-1 text-dark-blue'><i class="fa-solid fa-circle-info"></i></span> </div>
+                <div className='col-span-1 flex text-sm content-around'>Field Group: <button onClick={() => setButtonFieldGroupInfo (true)} className='ml-1 text-dark-blue'><i class="fa-solid fa-circle-info"></i></button> </div>
                 <select className='col-span-2 text-sm mt-1 rounded block w-4/5 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'>
                   <option>Global</option>
                 </select>
@@ -56,7 +60,7 @@ function AddField(props) {
                 
                 
                 <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 shadow-sm h-3.5 w-3.5 mt-2" />
-                <div className='col-span-2 flex text-sm content-around'>Include Family (tagging) <span className='ml-1 text-dark-blue'><i class="fa-solid fa-circle-info"></i></span></div>
+                <div className='col-span-2 flex text-sm content-around'>Include Family (tagging) <button onClick={() => setButtonFamilyTaggingInfo (true)} className='ml-1 text-dark-blue'><i class="fa-solid fa-circle-info"></i></button></div>
                 
                                            
             </div>
@@ -66,6 +70,8 @@ function AddField(props) {
               <button className='rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Update </button>
             </div>
             <FieldTypeInfo trigger={buttonFieldTypeInfo} setTrigger= {setButtonFieldTypeInfo}/>
+            <FieldGroupInfo trigger={buttonFieldGroupInfo} setTrigger= {setButtonFieldGroupInfo}/>
+            <FamilyTaggingInfo trigger={buttonFamilyTaggingInfo} setTrigger= {setButtonFamilyTaggingInfo}/>
         </div>
          </div>
 

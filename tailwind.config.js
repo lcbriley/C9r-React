@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['public/index.html', 'src/App.js', 'src/App.test.js', 'src/index.js','src/AddField.js', 'src/AddGroup.js', 'src/DeleteField.js', 'src/DeleteGroup.js', 'src/EditField.js', 'src/EditGroup.js', 'src/ExpandGroup.js', 'src/Popup.js', 'src/visibility.js', 'src/FieldTypeInfo.js'],
+  content: ['public/index.html', 'src/App.js', 'src/App.test.js', 'src/index.js','src/AddField.js', 'src/AddGroup.js', 'src/DeleteField.js', 'src/DeleteGroup.js', 'src/EditField.js', 'src/EditGroup.js', 'src/ExpandGroup.js', 'src/Popup.js', 'src/visibility.js', 'src/FieldTypeInfo.js', 'src/FieldGroupInfo.js', 'src/IncludeFamTagInfo.js'],
   theme: {
     
     extend: {

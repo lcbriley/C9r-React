@@ -114,7 +114,8 @@ const useToggle = (initialState = false) => {
 }
 const [isEyeChanged, setIsEyeChanged] = useToggle();
 const [isArrowChanged, setIsArrowChanged] = useToggle();
-  
+// const [clicked, setClicked] = useState(false);
+
 
 
   return (props.trigger) ? (
@@ -161,7 +162,7 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                      
                         <Draggable key={id} draggableId={id} index={index}>
                           {(provided) => (
-                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <li key={id}ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <Accordion title= {
                               <div className='global-section border-b text-left py-3 justify-between flex'>
                           <div className='justify-start space-x-4 flex'>
@@ -173,9 +174,14 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
 
                               {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
                               
+                               {/*   <Tooltip title="Visiblity" arrow>
+                                <button  className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                              </Tooltip>*/}
+
                               <Tooltip title="Visiblity" arrow>
-                                <button className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
-                              </Tooltip>
+                              <button key = {id} className='mr-3' onClick={e => e.target.key (setIsEyeChanged)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                            </Tooltip>
+                            
 
                               <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
 
