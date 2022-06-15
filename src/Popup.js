@@ -19,6 +19,7 @@ const Groups= [
   
   {
     id: "1",
+    single: "1",
     name: 'Global',
     count: 3,
     userCreated: 1,
@@ -26,18 +27,21 @@ const Groups= [
   },
   {
     id: "2",
+    single: "2",
     name: 'Private',
     count: 4,
     userCreated: 1,
   },
   {
     id: "3",
+    single: "3",
     name: 'System',
     count: 7,
     userCreated: 1,
   },
   {
     id: "4",
+    single: "4",
     name: 'USER CREATED',
     count: 3,
     userCreated: 2,
@@ -102,19 +106,18 @@ function Popup(props) {
 
 
 
-//  const useToggle = (initialState = false) => {
-//   const [state, setState] = useState(initialState);
-//   const toggle = useCallback(() => setState(state => !state), []);
-//   return [state, toggle]
-// }
-const useToggle = (initialState = false) => {
+ const useToggle = (initialState = false) => {
   const [state, setState] = useState(initialState);
-  const toggle = useCallback(() => setState(state => !state ), []);
+  const toggle = useCallback(() => setState(state => !state), []);
+ 
   return [state, toggle]
+
 }
+
 const [isEyeChanged, setIsEyeChanged] = useToggle();
 const [isArrowChanged, setIsArrowChanged] = useToggle();
-// const [clicked, setClicked] = useState(false);
+
+
 
 
 
@@ -162,7 +165,7 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                      
                         <Draggable key={id} draggableId={id} index={index}>
                           {(provided) => (
-                            <li key={id}ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <li key={id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <Accordion title= {
                               <div className='global-section border-b text-left py-3 justify-between flex'>
                           <div className='justify-start space-x-4 flex'>
@@ -173,13 +176,17 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                               {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
 
                               {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
+
+
+                             {/*    <Tooltip title="Visiblity" arrow>
+                              <button key ={id} value= {Groups.id} className='mr-3' onClick={(e) => e.target.value (setIsEyeChanged)} >{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> } </button>
+                            </Tooltip>*/}
+
+
                               
-                               {/*   <Tooltip title="Visiblity" arrow>
-                                <button  className='mr-3' onClick={setIsEyeChanged}>{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
-                              </Tooltip>*/}
 
                               <Tooltip title="Visiblity" arrow>
-                              <button key = {id} className='mr-3' onClick={e => e.target.key (setIsEyeChanged)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                              <button key = {id} className='mr-3' onClick={(e) => setIsEyeChanged ( e.target.key)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
                             </Tooltip>
                             
 
