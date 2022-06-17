@@ -23,6 +23,7 @@ const Groups= [
     name: 'Global',
     count: 3,
     userCreated: 1,
+    toggled: false,
 
   },
   {
@@ -31,6 +32,7 @@ const Groups= [
     name: 'Private',
     count: 4,
     userCreated: 1,
+    toggled: false,
   },
   {
     id: "3",
@@ -38,6 +40,7 @@ const Groups= [
     name: 'System',
     count: 7,
     userCreated: 1,
+    toggled: false,
   },
   {
     id: "4",
@@ -45,6 +48,7 @@ const Groups= [
     name: 'USER CREATED',
     count: 3,
     userCreated: 2,
+    toggled: false,
   },
   
   
@@ -104,18 +108,36 @@ function Popup(props) {
 
 //Eye & Arrow icon toggle
 
+const changeState = useState(Groups.toggled);
 
+function toggleEyeActive(index){
+  //let arrayCopy = [Groups];
+  Groups[index].toggled
+  ? (Groups[index].toggled= false)
+  : (Groups[index].toggled= true);
+  console.log(changeState);
+changeState(Groups.toggled);
+console.log("toggle Eye Active")
+}
+function toggleEye (index) {
+  if (Groups[index].toggled){
+    return <i className="fa-regular fa-eye-slash"></i>;
+  } else {
+    return <i className="fa-regular fa-eye"></i>;
 
- const useToggle = (initialState = false) => {
-  const [state, setState] = useState(initialState);
-  const toggle = useCallback(() => setState(state => !state), []);
- 
-  return [state, toggle]
-
+  }
 }
 
-const [isEyeChanged, setIsEyeChanged] = useToggle();
-const [isArrowChanged, setIsArrowChanged] = useToggle();
+//  const useToggle = (initialState = false) => {
+//   const [state, setState] = useState(initialState);
+//   const toggle = useCallback(() => setState(state => !state), []);
+ 
+//   return [state, toggle]
+
+// }
+
+// const [isEyeChanged, setIsEyeChanged] = useToggle();
+// const [isArrowChanged, setIsArrowChanged] = useToggle();
 
 
 
@@ -165,7 +187,7 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                      
                         <Draggable key={id} draggableId={id} index={index}>
                           {(provided) => (
-                            <li key={id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <Accordion title= {
                               <div className='global-section border-b text-left py-3 justify-between flex'>
                           <div className='justify-start space-x-4 flex'>
@@ -182,17 +204,19 @@ const [isArrowChanged, setIsArrowChanged] = useToggle();
                               <button key ={id} value= {Groups.id} className='mr-3' onClick={(e) => e.target.value (setIsEyeChanged)} >{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> } </button>
                             </Tooltip>*/}
 
-
+                            {/* <Tooltip title="Visiblity" arrow>
+                            <button key = {id} className='mr-3' onClick={(e) => setIsEyeChanged ( e.target.key)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                          </Tooltip>*/}
                               
 
                               <Tooltip title="Visiblity" arrow>
-                              <button key = {id} className='mr-3' onClick={(e) => setIsEyeChanged ( e.target.key)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
+                              <button key = {index} className='mr-3' onClick={()=> toggleEyeActive(index)}>{toggleEye(index)}</button>
                             </Tooltip>
                             
 
-                              <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                              <Tooltip title="Move to Top" arrow><button className='mr-3' ><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
 
-                              <Tooltip title="Expand" arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>
+                              
                               
                               
                           {/*   <Tooltip title="Expand" arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>*/}

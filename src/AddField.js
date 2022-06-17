@@ -105,8 +105,8 @@ function AddField(props) {
                      
                         <div className='mt-1 text-sm'>Name:</div>
                         <div className='ml-2 flex'>
-                          <input type="text" maxLength={250} className=' text-sm mt-1 pl-1 appearance-none rounded block border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
-                          <button className='ml-2 rounded border border-grey-200 text-xs px-1 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Apply </button>
+                          <input type="text" maxLength={250} className=' text-sm mt-1 pl-1 w-80 appearance-none rounded block border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
+                          <button className='ml-2 mt-1 rounded border border-grey-200 text-xs px-1 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Apply </button>
                         </div>
                         
                      

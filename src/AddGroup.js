@@ -34,7 +34,7 @@ function AddGroup(props) {
     }
   };
 
-  console.log(isCheck);
+  //console.log(isCheck);
 
   const catalog = list.map(({ id, name }) => {
     return (
