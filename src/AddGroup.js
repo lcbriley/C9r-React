@@ -11,8 +11,8 @@ function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
 
   const [isCheckAll, setIsCheckAll] = useState(false);
-  const [isCheck, setIsCheck] = useState([]);
-  const [list, setList] = useState([]);
+  const [isCheck, setIsCheck] = useState([false]);
+  const [list, setList] = useState([false]);
 
   useEffect(() => {
     setList(FieldList);
