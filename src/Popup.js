@@ -2,7 +2,7 @@ import { Tooltip } from '@mui/material';
 import React from 'react'
 //import useCollapse from 'react-collapsed';
 import './Popup.css'
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import AddField from './AddField';
 import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
@@ -11,8 +11,8 @@ import EditGroup from './EditGroup';
 //import DeleteField from './DeleteField';
 import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons'
 //import Visiblity from './visibility';
 
 
@@ -328,7 +328,6 @@ function toggleArrow (index) {
         
                       </div>
                     </div>
-
                     <div className='global-section border-b text-left py-3 justify-between flex'>
                       <div className='justify-start space-x-4 flex'>
                         <div className=''><i class="fa-solid fa-bars"></i></div>
@@ -340,7 +339,6 @@ function toggleArrow (index) {
                         <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
                       </div>
                     </div>
-
                     <div className='global-section border-b text-left py-3 justify-between flex'>
                       <div className='justify-start space-x-4 flex'>
                         <div className=''><i class="fa-solid fa-bars"></i></div>
@@ -352,7 +350,6 @@ function toggleArrow (index) {
                         <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
                       </div>
                     </div>
-
                     <div className='global-section border-b text-left py-3 justify-between flex'>
                       <div className='justify-start space-x-4 flex'>
                         <div className=''><i class="fa-solid fa-bars"></i></div>
@@ -367,10 +364,8 @@ function toggleArrow (index) {
                         <Tooltip title="Expand" arrow><button onClick={() => setButtonExpandGroup (true)} className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
         
                       </div>
-
                             
                     </div>
-
   </div>*/}
 
                   {/*<ExpandGroup trigger={buttonExpandGroup} setTrigger= {setButtonExpandGroup}/>*/}
@@ -390,4 +385,3 @@ function toggleArrow (index) {
 
 
 export default Popup
-
