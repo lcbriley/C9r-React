@@ -81,23 +81,27 @@ function Popup(props) {
   //const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
 
  //Expanding functionality
-  const Accordion = ({ title, children }) => {
+  const Accordion = ({ title, children}) => {
     const [isOpen, setOpen] = React.useState(false);
     return (
-      <div className="accordion-wrapper">
-        
-        <div
-          className={`accordion-title ${isOpen ? "open" : ""}`}
-          onClick={() => setOpen(!isOpen)}
-          >
-          {title}
-        </div>
-        <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
-          <div className="accordion-content">{children}</div>
-        </div>
+      <div>
+     
+      <div className={`accordion-title ${isOpen ? "open" : ""}`}
+      onClick={() => setOpen(!isOpen)}
+      >
+      {title}
+      </div>
+      <div>
+      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+      <div className="accordion-content">{children}</div>
+    </div>
+      </div>
+      
+      
       </div>
     );
   };
+  
   
 //Drag and Drop functionality 
 
@@ -225,14 +229,15 @@ function toggleArrow (index) {
                         <Draggable key={id} draggableId={id} index={index}>
                           {(provided) => (
                             <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <Accordion title= {
+                           
+                            <Accordion title={
                               <div className='global-section border-b text-left py-3 justify-between flex'>
                           <div className='justify-start space-x-4 flex'>
                             <div className=''><i class="fa-solid fa-bars"></i></div>
                               <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
                           </div>
-                            <div className='inline-flex'> 
-                              {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
+                          <div className='inline-flex'> 
+                             {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
 
                               {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
 
@@ -257,7 +262,9 @@ function toggleArrow (index) {
                               <Tooltip title="Move to Top" arrow><button className='mr-3' ><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
 
                               
-                              <Tooltip title="Expand"  arrow><button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button></Tooltip>
+                             <button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button>
+                              
+                              
                               
                             {/*  <Tooltip title="Expand" key = {index} arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>*/}
 
@@ -283,15 +290,16 @@ function toggleArrow (index) {
 
                               {/*<Tooltip title="Expand" arrow><button </button></Tooltip>*/}
                             </div>
+                            
                         </div>}>
                         <div className='mt-2'>
                         
+                        
                         <ExpandGroup trigger={Accordion} />
                         
-                        
                         </div>
-
                         </Accordion>
+                      
                             </li>
 
 

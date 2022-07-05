@@ -1,58 +1,94 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import FieldCheckbox from './FieldCheckbox';
+//import FieldCheckbox from './FieldCheckbox';
 import { FieldList } from './FieldList';
 
-
-//import Tooltip from '@mui/material/Tooltip';
 
 
 function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
 
-  const [isCheckAll, setIsCheckAll] = useState(false);
-  const [isCheck, setIsCheck] = useState([false]);
-  const [list, setList] = useState([false]);
-
-  useEffect(() => {
-    setList(FieldList);
-  }, [list]);
-
-  const handleSelectAll = e => {
-    setIsCheckAll(!isCheckAll);
-    setIsCheck(list.map(li => li.id));
-    if (isCheckAll) {
-      setIsCheck([]);
-    }
-  };
-
-  const handleClick = e => {
-    const { id, checked } = e.target;
-    setIsCheck([...isCheck, id]);
-    if (!checked) {
-      setIsCheck(isCheck.filter(item => item !== id));
-    }
-  };
-
-  //console.log(isCheck);
-
-  const catalog = list.map(({ id, name }) => {
+   
+ //Creating tag list
+ 
+ const [checkedAll, setCheckedAll] = useState(false);
+ const [checked, setChecked] = useState({
+  checkedId: false,
+  
+});
+ 
+  const catalog = FieldList.map(({ id, name, checkedId, index }) => {
     return (
       
         <div className= "mt-2 ml-3 flex">
-          <FieldCheckbox 
-            key={id}
+          <input 
+            key={index}
             type="checkbox"
             name={name}
             id={id}
-            handleClick={handleClick}
-            isChecked={isCheck.includes(id)}
+            onChange={() => toggleCheck("checkedId")}
+            checked={checked["checkedId"]}
+           
+         
+           
           />
          <span className='ml-2 align-middle'> {name}</span>
         </div>
      
     );
   });
+
+
+  
+
+  const toggleCheck = (inputName) => {
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      newState[inputName] = !prevState[inputName];
+      return newState;
+    });
+  };
+
+  /* ###################################################### */
+  /* #### CHECKS OR UNCHECKS ALL FROM SELECT ALL CLICK #### */
+  /* ###################################################### */
+
+  const selectAll = (value) => {
+    setCheckedAll(value);
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      for (const inputName in newState) {
+        newState[inputName] = value;
+      }
+      return newState;
+    });
+  };
+
+  /* ############################################# */
+  /* #### EFFECT TO CONTROL CHECKED_ALL STATE #### */
+  /* ############################################# */
+
+  // IF YOU CHECK BOTH INDIVIDUALLY. IT WILL ACTIVATE THE checkedAll STATE
+  // IF YOU UNCHECK ANY INDIVIDUALLY. IT WILL DE-ACTIVATE THE checkAll STATE
+
+  useEffect(() => {
+    let allChecked = true;
+    for (const inputName in checked) {
+      if (checked[inputName] === false) {
+        allChecked = false;
+      }
+    }
+    if (allChecked) {
+      setCheckedAll(true);
+    } else {
+      setCheckedAll(false);
+    }
+  }, [checked]);
+
+
+
+
+
 
 
 
@@ -87,7 +123,8 @@ function AddGroup(props) {
 
                           <div className='flex justify-between ml-3 mt-1 mb-3'>
                             <div>
-                              <input type="checkbox" id="selectAll" name="selectAll" handleClick = {handleSelectAll} isChecked={isCheckAll} value="include" class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+                              <input type="checkbox" id="selectAll" name="selectAll"  value="include" onChange={(event) => selectAll(event.target.checked)}
+                              checked={checkedAll} class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
                              
                             </div>
                             
@@ -103,6 +140,8 @@ function AddGroup(props) {
                       </div>
 
                       {catalog}
+
+                      
 
       
 
