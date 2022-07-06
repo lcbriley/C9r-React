@@ -12,17 +12,17 @@ function AddGroup(props) {
  //Creating tag list
  
  const [checkedAll, setCheckedAll] = useState(false);
- const [checked, setChecked] = useState({
-  checkedId: false,
+ //let checkedId = [FieldList.checkedId];
+ const [checked, setChecked] = useState( false
   
-});
+);
  
-  const catalog = FieldList.map(({ id, name, checkedId, index }) => {
+  const catalog = FieldList.map(({ id, name }, index) => {
     return (
       
-        <div className= "mt-2 ml-3 flex">
+        <div key={index} className= "mt-2 ml-3 flex">
           <input 
-            key={index}
+            
             type="checkbox"
             name={name}
             id={id}
@@ -39,8 +39,6 @@ function AddGroup(props) {
   });
 
 
-  
-
   const toggleCheck = (inputName) => {
     setChecked((prevState) => {
       const newState = { ...prevState };
@@ -49,9 +47,9 @@ function AddGroup(props) {
     });
   };
 
-  /* ###################################################### */
-  /* #### CHECKS OR UNCHECKS ALL FROM SELECT ALL CLICK #### */
-  /* ###################################################### */
+  
+  /*  CHECKS OR UNCHECKS ALL FROM SELECT ALL CLICK  */
+  
 
   const selectAll = (value) => {
     setCheckedAll(value);
@@ -62,11 +60,12 @@ function AddGroup(props) {
       }
       return newState;
     });
+    console.log(value);
   };
 
-  /* ############################################# */
-  /* #### EFFECT TO CONTROL CHECKED_ALL STATE #### */
-  /* ############################################# */
+  
+  /*  EFFECT TO CONTROL CHECKED_ALL STATE  */
+  
 
   // IF YOU CHECK BOTH INDIVIDUALLY. IT WILL ACTIVATE THE checkedAll STATE
   // IF YOU UNCHECK ANY INDIVIDUALLY. IT WILL DE-ACTIVATE THE checkAll STATE
@@ -84,11 +83,6 @@ function AddGroup(props) {
       setCheckedAll(false);
     }
   }, [checked]);
-
-
-
-
-
 
 
 
@@ -132,7 +126,7 @@ function AddGroup(props) {
                             
                             <div>
                               <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
-                              <button><i className="fa-solid fa-arrow-down-z-a fa-lg mr-2 p-1"></i></button>
+                              <button><i className="fa-solid fa-arrow-up-z-a fa-lg mr-2 p-1"></i></button>
                             </div>
                             
                             <div className='mr-5'>0</div>

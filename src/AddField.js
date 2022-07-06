@@ -94,19 +94,36 @@ function AddField(props) {
                 
                 <input type="checkbox" id="includeFamily" name="includeFamily" value="include" class="col-span-1 border-1 border-grey-300 shadow-sm h-3.5 w-3.5 mt-2" />
                 <div className='col-span-2 flex text-sm content-around'>Include Family (tagging) <button onClick={() => setButtonFamilyTaggingInfo (true)} className='ml-1 text-dark-blue'><i class="fa-solid fa-circle-info"></i></button></div>
-                
+            
                                            
             </div>
 
-             {
-              showhide >= "1" && <div className='mt-5'> 
+
+            <div className='grid grid-cols-2 grid-rows-1 gap-3 mt-2 ml-4'>
+            <div className='col-span-1 flex text-sm mt-3'>Assign Keyboard Hot Key: </div>
+            <div className='col-span-1 block'>
+              <input type="text"  maxLength={1} className='justify-center text-sm mt-1 pl-1 ml-10 appearance-none rounded block w-6 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
+              
+              
+            </div>
+        
+       
+          </div>
+          <div className='text-xs text-gray-400 text-center ml-32'>
+             
+              Available Characters (lowercase only):<br/> a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0
+              </div>
+         
+
+
+             {showhide >= "1" && <div className='mt-7'> 
                 <div className='font-semibold'>Select Options</div>
                    <div className='place-content-center flex mt-2' >
                      
                         <div className='mt-1 text-sm'>Name:</div>
                         <div className='ml-2 flex'>
-                          <input type="text" maxLength={250} className=' text-sm mt-1 pl-1 w-80 appearance-none rounded block border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
-                          <button className='ml-2 mt-1 rounded border border-grey-200 text-xs px-1 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0'> Apply </button>
+                          <input type="text" maxLength={250} className=' text-sm mt-1 pl-1 w-80 mr-7 appearance-none rounded block border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
+                         
                         </div>
                         
                      
