@@ -1,23 +1,14 @@
 import { Tooltip } from '@mui/material';
 import React from 'react'
-//import useCollapse from 'react-collapsed';
 import './Popup.css'
 import { useState } from 'react';
 import AddField from './AddField';
 import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
 import EditGroup from './EditGroup';
-//import EditField from './EditField';
-//import DeleteField from './DeleteField';
+import {Groups} from './Groups';
 import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons'
-//import Visiblity from './visibility';
-
-
-
-
 
 
 
@@ -25,52 +16,8 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function Popup(props) {
 
-  const [state, changeState] = useState({
-    Groups:[
-    {
-      id: "1",
-      single: "1",
-      name: 'Global',
-      count: 3,
-      userCreated: 1,
-      toggled: false,
-      expanded: false,
-  
-    },
-    {
-      id: "2",
-      single: "2",
-      name: 'Private',
-      count: 4,
-      userCreated: 1,
-      toggled: false,
-      expanded: false,
-    },
-    {
-      id: "3",
-      single: "3",
-      name: 'System',
-      count: 7,
-      userCreated: 1,
-      toggled: false,
-      expanded: false,
-    },
-    {
-      id: "4",
-      single: "4",
-      name: 'USER CREATED',
-      count: 3,
-      userCreated: 2,
-      toggled: false,
-      expanded: false,
-    },
-    
-    
-  ]});
+  const [state, changeState] = useState(Groups);
 
-
-
-  
   const [buttonPopup, setButtonPopup] = useState(false);
   const [buttonAddField, setButtonAddField] = useState(false);
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
@@ -105,7 +52,7 @@ function Popup(props) {
   
 //Drag and Drop functionality 
 
- const [characters, updateCharacters] = useState(state.Groups);
+ const [characters, updateCharacters] = useState(Groups);
  
   function handleOnDragEnd(result) {
    if (!result.destination) return;
@@ -121,7 +68,7 @@ function Popup(props) {
 //Eyeicon toggle
 
 function toggleEyeActive(index){
-  let arrayCopy = [...state.Groups];
+  let arrayCopy = [...Groups];
 
   arrayCopy[index].toggled
   ? (arrayCopy[index].toggled= false)
@@ -131,7 +78,7 @@ changeState({...state, Groups:arrayCopy});
 
 }
 function toggleEye (index) {
-    if (state.Groups[index].toggled){
+    if (Groups[index].toggled){
     return <i className="fa-regular fa-eye-slash"></i> ;
     
   } else {
@@ -144,7 +91,7 @@ function toggleEye (index) {
 
 //Arrowicon toggle
 function toggleArrowActive(index){
-  let arrayCopy = [...state.Groups];
+  let arrayCopy = [...Groups];
 
   arrayCopy[index].expanded
   ? (arrayCopy[index].expanded= false)
@@ -155,7 +102,7 @@ changeState({...state, Groups:arrayCopy});
 }
 
 function toggleArrow (index) {
-  if (state.Groups[index].expanded){
+  if (Groups[index].expanded){
   return <i class="fa-solid fa-angle-up"></i> ;
   
 } else {
@@ -164,22 +111,6 @@ function toggleArrow (index) {
 }
 
 }
-
-
-
-
-//  const useToggle = (initialState = false) => {
-//   const [state, setState] = useState(initialState);
-//   console.log(state)
-//   const toggle = useCallback(() => setState(state => !state), []);
-  
-//   return [state, toggle]
-  
-
-//  }
-
-// const [isEyeChanged, setIsEyeChanged] = useToggle();
- //const [isArrowChanged, setIsArrowChanged] = useToggle();
 
 
 
@@ -242,14 +173,7 @@ function toggleArrow (index) {
                               {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
 
 
-                             {/*    <Tooltip title="Visiblity" arrow>
-                              <button key ={id} value= {Groups.id} className='mr-3' onClick={(e) => e.target.value (setIsEyeChanged)} >{isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> } </button>
-                            </Tooltip>*/}
-
-                            {/* <Tooltip title="Visiblity" arrow>
-                            <button key = {id} className='mr-3' onClick={(e) => setIsEyeChanged ( e.target.key)} >  {isEyeChanged ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button>
-                          </Tooltip>*/}
-                              
+                                                        
 
                               <Tooltip title="Visiblity" arrow>
                                 <button key = {index} className='mr-3' onClick={() => toggleEyeActive(index)}>{toggleEye(index)}
@@ -266,11 +190,7 @@ function toggleArrow (index) {
                               
                               
                               
-                            {/*  <Tooltip title="Expand" key = {index} arrow><button className='mr-3' onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} </button></Tooltip>*/}
-
-
-
-
+                       
 
                         {/*    <Accordion title= {<Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>}>
                           
