@@ -8,6 +8,7 @@ export const Groups=[
       userCreated: 1,
       toggled: false,
       expanded: false,
+      fieldGroupId: 1, 
   
     },
     {
@@ -18,6 +19,7 @@ export const Groups=[
       userCreated: 1,
       toggled: false,
       expanded: false,
+      fieldGroupId: 2,
     },
     {
       id: "3",
@@ -27,6 +29,7 @@ export const Groups=[
       userCreated: 1,
       toggled: false,
       expanded: false,
+      fieldGroupId: 3,
     },
     {
       id: "4",
@@ -36,6 +39,7 @@ export const Groups=[
       userCreated: 2,
       toggled: false,
       expanded: false,
+      fieldGroupId: 4,
     },
     
     

@@ -24,6 +24,7 @@ function ExpandGroup(props) {
    items.splice(result.destination.index, 0, reorderedItem);
 
    updateFields(items);
+   console.log(updateFields);
  }
 
 // Toggle Eye Function
@@ -39,7 +40,7 @@ function ExpandGroup(props) {
   
   }
 
-  
+
 
     return (props.trigger) ? (
       
@@ -57,8 +58,7 @@ return (
       {(provided) => (
         
         <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-        
-        {userfields.fieldGroup === Groups.name ?  /* This is my attempt at getting the fields to only show under the correct group... but when I console.log userfields.FieldGroup and Groups.name they come up as undefined */
+
         
         <div className='mt-1 ml-4 flex justify-between border-b pb-2'>
         
@@ -78,7 +78,7 @@ return (
 </div>
 
 
-: ""}
+
 
         
     <div className='mt-2'>

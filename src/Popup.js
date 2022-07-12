@@ -7,6 +7,7 @@ import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
 import EditGroup from './EditGroup';
 import {Groups} from './Groups';
+import {userfields} from './Fields';
 import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -15,6 +16,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 
 function Popup(props) {
+
 
   const [state, changeState] = useState(Groups);
 
@@ -27,25 +29,40 @@ function Popup(props) {
   //const [buttonDeleteField, setButtonDeleteField] = useState(false);
   //const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
 
+
+
+
  //Expanding functionality
-  const Accordion = ({ title, children}) => {
-    const [isOpen, setOpen] = React.useState(false);
+  const Accordion = ({ title, children, index}) => {
+    //const [isOpen, setOpen] = React.useState(false);
+
     return (
+<div className={`accordion-title ${Groups[index].expanded ? "open" : ""}`}>
+      <div>{title}</div>
+      <div className={`accordion-item ${!Groups[index].expanded ? "collapsed" : ""}`}>
       <div>
-     
-      <div className={`accordion-title ${isOpen ? "open" : ""}`}
-      onClick={() => setOpen(!isOpen)}
-      >
-      {title}
-      </div>
-      <div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
       <div className="accordion-content">{children}</div>
-    </div>
       </div>
+       </div>
+
+</div>
+
+
+    //   <div>
+     
+    //   <div className={`accordion-title ${isOpen ? "open" : ""}`}
+    //   onClick={() => setOpen(!isOpen)}
+    //   >
+    //   {title}
+    //   </div>
+    //   <div>
+    //   <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+    //   <div className="accordion-content">{children}</div>
+    // </div>
+    //   </div>
       
       
-      </div>
+    //   </div>
     );
   };
   
@@ -62,6 +79,7 @@ function Popup(props) {
    items.splice(result.destination.index, 0, reorderedItem);
 
    updateCharacters(items);
+
  }
 
 
@@ -91,6 +109,8 @@ function toggleEye (index) {
 
 //Arrowicon toggle
 function toggleArrowActive(index){
+
+  console.log("called toggle arrow active with index",index)
   let arrayCopy = [...Groups];
 
   arrayCopy[index].expanded
@@ -98,6 +118,10 @@ function toggleArrowActive(index){
   : (arrayCopy[index].expanded= true);
  
 changeState({...state, Groups:arrayCopy});
+
+// const arrow = [Groups].map((elm,ind)=>({elm,expanded:(ind===index)?!elm.expanded:elm.expanded}));
+// changeState({Groups:arrow});
+// console.log("groups=",Groups)
 
 }
 
@@ -111,6 +135,8 @@ function toggleArrow (index) {
 }
 
 }
+
+
 
 
 
@@ -144,8 +170,6 @@ function toggleArrow (index) {
                     </Tooltip>
                   </div>
                     
-  {/*<Visiblity/>*/}
-
 
                     <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
                     <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
@@ -186,32 +210,14 @@ function toggleArrow (index) {
                               <Tooltip title="Move to Top" arrow><button className='mr-3' ><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
 
                               
-                             <button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button>
-                              
+                           <button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button>                              
                               
                               
                        
 
-                        {/*    <Accordion title= {<Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>}>
-                          
-                              Sunlight reaches Earth's atmosphere and is scattered in all directions by
-                              all the gases and particles in the air. Blue light is scattered more than
-                              the other colors because it travels as shorter, smaller waves. This is why
-                          we see a blue sky most of the time.*/}
-                             
-                              
-                         {/* onClick={setIsArrowChanged}>{isArrowChanged ?  <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}*/}
-                        
-                          
-                              
-   
-
-
-
-                              {/*<Tooltip title="Expand" arrow><button </button></Tooltip>*/}
                             </div>
                             
-                        </div>}>
+                        </div>} index={index}>
                         <div className='mt-2'>
                         
                         
@@ -243,59 +249,7 @@ function toggleArrow (index) {
             
 </div>
                     
-                  {/*<div className='levels mt-4'>
-                    <div className='global-section border-b text-left py-3 justify-between flex'>
-                      <div className='justify-start space-x-4 flex'>
-                        <div className=''><i class="fa-solid fa-bars"></i></div>
-                          <div>Global <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
-                      </div>
-                      <div className=''> 
-                        <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                        <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                        <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
-        
-                      </div>
-                    </div>
-                    <div className='global-section border-b text-left py-3 justify-between flex'>
-                      <div className='justify-start space-x-4 flex'>
-                        <div className=''><i class="fa-solid fa-bars"></i></div>
-                          <div>Private <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>4</span></div>
-                      </div>
-                      <div className='inline-flex'> 
-                        <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                        <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                        <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
-                      </div>
-                    </div>
-                    <div className='global-section border-b text-left py-3 justify-between flex'>
-                      <div className='justify-start space-x-4 flex'>
-                        <div className=''><i class="fa-solid fa-bars"></i></div>
-                          <div>System <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>7</span></div>
-                      </div>
-                      <div className='inline-flex'> 
-                        <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                        <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                        <Tooltip title="Expand" arrow><button className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
-                      </div>
-                    </div>
-                    <div className='global-section border-b text-left py-3 justify-between flex'>
-                      <div className='justify-start space-x-4 flex'>
-                        <div className=''><i class="fa-solid fa-bars"></i></div>
-                          <div>USER CREATED <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>3</span></div>
-                      </div>
-                      <div className='flex inline-block text-right justify-end'> 
-                          
-                        <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
-                        <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip>
-                        <Tooltip title="Visiblity" arrow><button className='mr-3'><i class="fa-regular fa-eye"></i></button></Tooltip>
-                        <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-                        <Tooltip title="Expand" arrow><button onClick={() => setButtonExpandGroup (true)} className='mr-3'><i class="fa-solid fa-angle-down"></i></button></Tooltip>
-        
-                      </div>
-                            
-                    </div>
-  </div>*/}
-
+                  
                   {/*<ExpandGroup trigger={buttonExpandGroup} setTrigger= {setButtonExpandGroup}/>*/}
                   <DeleteGroup trigger={buttonDeleteGroup} setTrigger= {setButtonDeleteGroup}/>
                   <EditGroup trigger={buttonEditGroup} setTrigger= {setButtonEditGroup}/>
