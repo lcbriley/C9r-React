@@ -8,26 +8,51 @@ import { FieldList } from './FieldList';
 function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
 
-   
+  // const [isCheckAll, setIsCheckAll] = useState(false);
+  // const [isCheck, setIsCheck] = useState([]);
+  // const [list, setList] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(list);
+  //   setList(FieldList);
+  // }, [list]);
+
+  // const handleSelectAll = e => {
+  //   setIsCheckAll(!isCheckAll);
+  //   setIsCheck(list.map(li => li.id));
+  //   if (isCheckAll) {
+  //     setIsCheck([]);
+  //   }
+  // };
+
+  // const handleClick = e => {
+  //   const { id, checked } = e.target;
+  //   setIsCheck([...isCheck, id]);
+  //   if (!checked) {
+  //     setIsCheck(isCheck.filter(item => item !== id));
+  //   }
+  // };
+  const [sort, setSort]= useState (FieldList);
+  const sortAB = () => {
+    const sorted = [...sort].sort((a,b)=>{
+      return a.name-b.name;
+    });
+    setSort(sorted)
+    console.log("sortAB")
+  }
  //Creating tag list
- 
- const [checkedAll, setCheckedAll] = useState(false);
- //let checkedId = [FieldList.checkedId];
- const [checked, setChecked] = useState( false
-  
-);
- 
-  const catalog = FieldList.map(({ id, name }, index) => {
+
+  const catalog = FieldList.map(({ id, name,i }, index) => {
     return (
       
         <div key={index} className= "mt-2 ml-3 flex">
           <input 
-            
+            key={i}
             type="checkbox"
             name={name}
             id={id}
-            onChange={() => toggleCheck("checkedId")}
-            checked={checked["checkedId"]}
+            // onChange={handleClick[index]}
+            // checked={isChecked}
            
          
            
@@ -39,50 +64,18 @@ function AddGroup(props) {
   });
 
 
-  const toggleCheck = (inputName) => {
-    setChecked((prevState) => {
-      const newState = { ...prevState };
-      newState[inputName] = !prevState[inputName];
-      return newState;
-    });
-  };
+  //console.log(isCheck);
 
+
+//Sorting
+
+// function sort () {
+//   FieldList.sort(function(a,b){
+
+//   return a.name.localeCompare(b.name);
   
-  /*  CHECKS OR UNCHECKS ALL FROM SELECT ALL CLICK  */
-  
+// })}
 
-  const selectAll = (value) => {
-    setCheckedAll(value);
-    setChecked((prevState) => {
-      const newState = { ...prevState };
-      for (const inputName in newState) {
-        newState[inputName] = value;
-      }
-      return newState;
-    });
-    console.log(value);
-  };
-
-  
-  /*  EFFECT TO CONTROL CHECKED_ALL STATE  */
-  
-
-  // IF YOU CHECK BOTH INDIVIDUALLY. IT WILL ACTIVATE THE checkedAll STATE
-  // IF YOU UNCHECK ANY INDIVIDUALLY. IT WILL DE-ACTIVATE THE checkAll STATE
-
-  useEffect(() => {
-    let allChecked = true;
-    for (const inputName in checked) {
-      if (checked[inputName] === false) {
-        allChecked = false;
-      }
-    }
-    if (allChecked) {
-      setCheckedAll(true);
-    } else {
-      setCheckedAll(false);
-    }
-  }, [checked]);
 
 
 
@@ -117,15 +110,14 @@ function AddGroup(props) {
 
                           <div className='flex justify-between ml-3 mt-1 mb-3'>
                             <div>
-                              <input type="checkbox" id="selectAll" name="selectAll"  value="include" onChange={(event) => selectAll(event.target.checked)}
-                              checked={checkedAll} class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
+                              <input  type="checkbox" id="selectAll" name="selectAll"  value="include"  class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2" />
                              
                             </div>
                             
                             
                             
                             <div>
-                              <button className=''><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
+                              <button className='' onClick={sortAB}><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
                               <button><i className="fa-solid fa-arrow-up-z-a fa-lg mr-2 p-1"></i></button>
                             </div>
                             

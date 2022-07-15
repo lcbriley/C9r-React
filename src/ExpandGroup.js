@@ -40,6 +40,22 @@ function ExpandGroup(props) {
   
   }
 
+  //Move to Top
+  const [fieldsArr, setFieldsArr] = useState(userfields);
+    
+    const move = (currentIndex, futureIndex) => {
+      
+        if (futureIndex !== -1 && futureIndex < fieldsArr.length ) {
+            const tempItemsAray = [...fieldsArr]
+            const item = tempItemsAray[currentIndex];
+            const movingItem = tempItemsAray[futureIndex];
+            tempItemsAray[currentIndex] = movingItem;
+            tempItemsAray[futureIndex] = item;
+            setFieldsArr(tempItemsAray);
+            console.log("move function")
+        }}
+   console.log(fieldsArr)
+
 
 
     return (props.trigger) ? (
@@ -51,7 +67,7 @@ function ExpandGroup(props) {
 <ul className="fields" {...provided.droppableProps} ref={provided.innerRef}>
 
 
-{userfields.map(({id, fieldName, fieldType, familyTagging, user, toggled}, index) => {
+{fieldsArr.map(({id, fieldName, fieldType, familyTagging, user, toggled}, index) => {
 return (
  
     <Draggable key={id} draggableId={id} index={index}>
@@ -67,10 +83,10 @@ return (
                 <div>{fieldType || ""}</div>
                 <div>{familyTagging === false ? " " : <i class="fa-solid fa-user-tag"></i>}</div>
                 <div>By: {user}</div>
-                <div className=''>
+                <div className='' item= {fieldsArr.id}>
                   <Tooltip title="Edit" arrow><button onClick={() => setButtonEditField (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip>
                   <Tooltip title="Visiblity" arrow><button key = {index} className='mr-3' onClick={() => toggleEyeActive(index)}>{toggled === true ? <i className="fa-regular fa-eye-slash"></i> : <i className="fa-regular fa-eye"></i> }</button></Tooltip>
-                  <Tooltip title="Move to Top" arrow><button className='mr-3'><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                  <Tooltip title="Move to Top" arrow><button className='mr-3' onClick={() => move(index,  0)}><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
                   
                 </div>
      

@@ -110,7 +110,7 @@ function toggleEye (index) {
 //Arrowicon toggle
 function toggleArrowActive(index){
 
-  console.log("called toggle arrow active with index",index)
+
   let arrayCopy = [...Groups];
 
   arrayCopy[index].expanded
@@ -136,6 +136,21 @@ function toggleArrow (index) {
 
 }
 
+//Move to top action
+const [itemsArr, setItemsArr] = useState(Groups);
+    
+    const move = (currentIndex, futureIndex) => {
+      
+        if (futureIndex !== -1 && futureIndex < itemsArr.length ) {
+            const tempItemsAray = [...itemsArr]
+            const item = tempItemsAray[currentIndex];
+            const movingItem = tempItemsAray[futureIndex];
+            tempItemsAray[currentIndex] = movingItem;
+            tempItemsAray[futureIndex] = item;
+            setItemsArr(tempItemsAray);
+            console.log("move function")
+        }}
+   console.log(itemsArr)
 
 
 
@@ -161,93 +176,85 @@ function toggleArrow (index) {
                       </button>
                     </Tooltip>
 
-                   
-
 
                     <Tooltip title="Add Field" arrow>
                       <button onClick={() => setButtonAddField (true)} className=' '><span><i class="fa-solid fa-bars fa-lg mr-1"></i></span> Add Field
                       </button>
                     </Tooltip>
                   </div>
+                  <div className="wrapper">
+                  <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="characters">
+                {(provided) => (
+                <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
+                {itemsArr.map(({id, name, count, userCreated}, index) => {
+                  return (
+                   
+                      <Draggable key={id} draggableId={id} index={index}>
+                        {(provided) => (
+                          <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                         
+                          <Accordion title={
+                            <div className='global-section border-b text-left py-3 justify-between flex'>
+                        <div className='justify-start space-x-4 flex'>
+                          <div className=''><i class="fa-solid fa-bars"></i></div>
+                            <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
+                        </div>
+                        <div className='inline-flex' item= {itemsArr.id}> 
+                           {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
+                
+                            {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
+                
+                
+                                                      
+                
+                            <Tooltip title="Visiblity" arrow>
+                              <button key = {index} className='mr-3' onClick={() => toggleEyeActive(index)}>{toggleEye(index)}
+                           
+                              
+                              </button>
+                          </Tooltip>
+                          
+                
+                            <Tooltip title="Move to Top" arrow ><button className='mr-3' onClick={() => move(index,  0)}><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
+                
+                             
+                          <button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button>                          
+                            
+                            
+                     
+                
+                          </div>
+                          
+                      </div>} index={index}>
+                      <div className='mt-2'>
+                      
+                      
+                      <ExpandGroup trigger={Accordion} /> 
+                      
+                      </div>
+                      </Accordion>
                     
+                          </li>
+                
+                                  
+                        )}
+                      </Draggable>
+                
+                      
+                              );
+                            })}
+                            {provided.placeholder}
+                          </ul>
+                        )}
+                      </Droppable>
+                          </DragDropContext>
+                
+                </div>
 
                     <AddGroup trigger={buttonAddGroup} setTrigger= {setButtonAddGroup}/>
                     <AddField trigger={buttonAddField} setTrigger= {setButtonAddField}/>
-                    <div className="wrapper">
-                    <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="characters">
-              {(provided) => (
-                <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                  {characters.map(({id, name, count, userCreated}, index) => {
-                    return (
-                     
-                        <Draggable key={id} draggableId={id} index={index}>
-                          {(provided) => (
-                            <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                           
-                            <Accordion title={
-                              <div className='global-section border-b text-left py-3 justify-between flex'>
-                          <div className='justify-start space-x-4 flex'>
-                            <div className=''><i class="fa-solid fa-bars"></i></div>
-                              <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
-                          </div>
-                          <div className='inline-flex'> 
-                             {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
-
-                              {userCreated === 2 ? <Tooltip title="Delete" arrow><button onClick={() => setButtonDeleteGroup (true)} className='mr-3'><i class="fa-solid   fa-trash-can"></i></button></Tooltip> : null } 
-
-
-                                                        
-
-                              <Tooltip title="Visiblity" arrow>
-                                <button key = {index} className='mr-3' onClick={() => toggleEyeActive(index)}>{toggleEye(index)}
-                             
-                                
-                                </button>
-                            </Tooltip>
-                            
-
-                              <Tooltip title="Move to Top" arrow><button className='mr-3' ><i class="fa-solid fa-arrow-up"></i></button></Tooltip>
-
-                              
-                           <button key = {index} className='mr-3' onClick={() => toggleArrowActive(index)}>{toggleArrow(index)} </button>                              
-                              
-                              
-                       
-
-                            </div>
-                            
-                        </div>} index={index}>
-                        <div className='mt-2'>
-                        
-                        
-                        <ExpandGroup trigger={Accordion} />
-                        
-                        </div>
-                        </Accordion>
-                      
-                            </li>
-
-
-
-                         
-
-
-
-                            
-                          )}
-                        </Draggable>
             
-                        
-                                );
-                              })}
-                              {provided.placeholder}
-                            </ul>
-                          )}
-                        </Droppable>
-                            </DragDropContext>
-            
-</div>
                     
                   
                   {/*<ExpandGroup trigger={buttonExpandGroup} setTrigger= {setButtonExpandGroup}/>*/}
