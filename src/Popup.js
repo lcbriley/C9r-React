@@ -7,7 +7,7 @@ import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
 import EditGroup from './EditGroup';
 import {Groups} from './Groups';
-import {userfields} from './Fields';
+//import {userfields} from './Fields';
 import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -63,7 +63,7 @@ function Popup(props) {
       
       
     //   </div>
-    );
+  );
   };
   
   
@@ -155,7 +155,6 @@ const [itemsArr, setItemsArr] = useState(Groups);
 
 
 
-
   return (props.trigger) ? (
    
     <div className='popup fixed flex top-0 left-0 w-full h-screen justify-center items-center'>
@@ -187,18 +186,19 @@ const [itemsArr, setItemsArr] = useState(Groups);
                 <Droppable droppableId="characters">
                 {(provided) => (
                 <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                {itemsArr.map(({id, name, count, userCreated}, index) => {
+                {itemsArr.map(({ id, name, count, userCreated, fieldGroupId}, index) => {
                   return (
                    
                       <Draggable key={id} draggableId={id} index={index}>
                         {(provided) => (
                           <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                         
+                       
                           <Accordion title={
                             <div className='global-section border-b text-left py-3 justify-between flex'>
                         <div className='justify-start space-x-4 flex'>
                           <div className=''><i class="fa-solid fa-bars"></i></div>
                             <div> {name} <span className='rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1'>{count}</span></div>
+                            <div>{fieldGroupId}</div>
                         </div>
                         <div className='inline-flex' item= {itemsArr.id}> 
                            {userCreated === 2 ? <Tooltip ><button onClick={() => setButtonEditGroup (true)} className='mr-3'><i class="fa-solid fa-pencil"></i></button></Tooltip> : null }
@@ -229,11 +229,13 @@ const [itemsArr, setItemsArr] = useState(Groups);
                       </div>} index={index}>
                       <div className='mt-2'>
                       
+                       
+                        <ExpandGroup trigger={Accordion} /> 
                       
-                      <ExpandGroup trigger={Accordion} /> 
-                      
+                        
+
                       </div>
-                      </Accordion>
+                          </Accordion>
                     
                           </li>
                 
@@ -271,6 +273,7 @@ const [itemsArr, setItemsArr] = useState(Groups);
   ) :"";
  
 }
+
 
 
 export default Popup

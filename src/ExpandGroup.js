@@ -4,17 +4,17 @@ import { useState } from 'react';
 import EditField from './EditField';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {Groups} from './Groups';
-import {userfields} from './Fields';
+//import {userfields} from './Fields';
 
 
 function ExpandGroup(props) {
   const [buttonEditField, setButtonEditField] = useState(false); 
   
-  const [state, changeState] = useState(userfields);
+  const [state, changeState] = useState(Groups.fields);
 
 
 // Drag and drop functionality 
-  const [fields, updateFields] = useState(userfields);
+  const [fields, updateFields] = useState(Groups.fields);
  
   function handleOnDragEndFields(result) {
    if (!result.destination) return;
@@ -30,7 +30,7 @@ function ExpandGroup(props) {
 // Toggle Eye Function
 
   function toggleEyeActive(index){
-    let arrayCopy = [...userfields];
+    let arrayCopy = [...Groups.fields];
   
     arrayCopy[index].toggled
     ? (arrayCopy[index].toggled= false)
@@ -41,7 +41,7 @@ function ExpandGroup(props) {
   }
 
   //Move to Top
-  const [fieldsArr, setFieldsArr] = useState(userfields);
+  const [fieldsArr, setFieldsArr] = useState(Groups.fields);
     
     const move = (currentIndex, futureIndex) => {
       
@@ -53,21 +53,37 @@ function ExpandGroup(props) {
             tempItemsAray[futureIndex] = item;
             setFieldsArr(tempItemsAray);
             console.log("move function")
+            
         }}
-   console.log(fieldsArr)
+   //console.log(fieldsArr)
+   
 
+
+
+//   const GroupfieldGroupId = Groups.fieldGroupId;
+
+//   const FieldsfieldGroupId = userfields.fieldGroupId;
+   
+
+//   console.log(GroupfieldGroupId);
+// console.log(FieldsfieldGroupId);
 
 
     return (props.trigger) ? (
       
 <div className="wrapper">
-<DragDropContext onDragEnd={handleOnDragEndFields}>
-<Droppable droppableId="fields">
+{/*
+  <DragDropContext onDragEnd={handleOnDragEndFields}>
+  <Droppable droppableId="fields">
+    */}
 {(provided) => (
+  
 <ul className="fields" {...provided.droppableProps} ref={provided.innerRef}>
 
 
+
 {fieldsArr.map(({id, fieldName, fieldType, familyTagging, user, toggled}, index) => {
+  
 return (
  
     <Draggable key={id} draggableId={id} index={index}>
@@ -75,12 +91,16 @@ return (
         
         <li key={index} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
 
+ 
         
         <div className='mt-1 ml-4 flex justify-between border-b pb-2'>
         
         
                 <div className=''><span className=''><i class="fa-solid fa-bars mr-3"></i></span>{fieldName}</div>
                 <div>{fieldType || ""}</div>
+                <div>{Groups.fieldGroupId}</div>
+                <div>{Groups.fields}</div>
+                
                 <div>{familyTagging === false ? " " : <i class="fa-solid fa-user-tag"></i>}</div>
                 <div>By: {user}</div>
                 <div className='' item= {fieldsArr.id}>
@@ -110,13 +130,16 @@ return (
     </Draggable>
 
     
-            );
+            )
+            
           })}
           {provided.placeholder}
+
+         
         </ul>
-      )}
-    </Droppable>
-        </DragDropContext>
+     )}
+    {/* </Droppable>
+        </DragDropContext>*/}
 
 </div>
 

@@ -7,42 +7,9 @@ import { FieldList } from './FieldList';
 
 function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
-
-  // const [isCheckAll, setIsCheckAll] = useState(false);
-  // const [isCheck, setIsCheck] = useState([]);
-  // const [list, setList] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(list);
-  //   setList(FieldList);
-  // }, [list]);
-
-  // const handleSelectAll = e => {
-  //   setIsCheckAll(!isCheckAll);
-  //   setIsCheck(list.map(li => li.id));
-  //   if (isCheckAll) {
-  //     setIsCheck([]);
-  //   }
-  // };
-
-  // const handleClick = e => {
-  //   const { id, checked } = e.target;
-  //   setIsCheck([...isCheck, id]);
-  //   if (!checked) {
-  //     setIsCheck(isCheck.filter(item => item !== id));
-  //   }
-  // };
-  const [sort, setSort]= useState (FieldList);
-  const sortAB = () => {
-    const sorted = [...sort].sort((a,b)=>{
-      return a.name-b.name;
-    });
-    setSort(sorted)
-    console.log("sortAB")
-  }
  //Creating tag list
 
-  const catalog = FieldList.map(({ id, name,i }, index) => {
+  const catalog = FieldList.map(({ id, name, i}, index) => {
     return (
       
         <div key={index} className= "mt-2 ml-3 flex">
@@ -63,18 +30,27 @@ function AddGroup(props) {
     );
   });
 
+  function catSort ()  {
+    FieldList.sort(function(a, b) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+        
+         return 0;
+       });
 
-  //console.log(isCheck);
+       
+  }
+
+console.log(FieldList);
 
 
-//Sorting
 
-// function sort () {
-//   FieldList.sort(function(a,b){
 
-//   return a.name.localeCompare(b.name);
-  
-// })}
+
 
 
 
@@ -117,7 +93,7 @@ function AddGroup(props) {
                             
                             
                             <div>
-                              <button className='' onClick={sortAB}><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
+                              <button className='' onClick={() => catSort(catalog)} ><i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i></button>
                               <button><i className="fa-solid fa-arrow-up-z-a fa-lg mr-2 p-1"></i></button>
                             </div>
                             

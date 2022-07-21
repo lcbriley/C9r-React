@@ -1,28 +1,35 @@
-export const userfields= [
-    {
-      id: "1",
-      fieldName: "USER CREATED Field 1",
-      scope: "Global",
-      fieldType: "Yes/No",
-      user: "Claire Briley",
-      fieldGroupId: 4,
-      familyTagging: true,
-      quickSearch: true,
-      toggled: false,
-    },
-    {
-      id: "2",
-      fieldName: "USER CREATED Field 2",
-      scope: "Global",
-      fieldType: "Date",
-      user: "Claire Briley",
-      fieldGroupId: 3,
-      familyTagging: false,
-      quickSearch: true,
-      toggled: false,
-    },
+
+//fieldGroupdId: 1 = Global
+//fieldGroupdId: 2 = Private
+//fieldGroupdId: 3 = System
+//fieldGroupdId: 4 = USER CREATED
+
+
+// export const userfields= [
+//     {
+//       id: "1",
+//       fieldName: "USER CREATED Field 1",
+//       scope: "Global",
+//       fieldType: "Yes/No",
+//       user: "Claire Briley",
+//       fieldGroupId: 4,
+//       familyTagging: true,
+//       quickSearch: true,
+//       toggled: false,
+//     },
+//     {
+//       id: "2",
+//       fieldName: "USER CREATED Field 2",
+//       scope: "Global",
+//       fieldType: "Date",
+//       user: "Claire Briley",
+//       fieldGroupId: 3,
+//       familyTagging: false,
+//       quickSearch: true,
+//       toggled: false,
+//     },
     
-  ];
+//   ];
 
   // 
     //   id: "3",
