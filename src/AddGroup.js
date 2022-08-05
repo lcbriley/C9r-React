@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 //import FieldCheckbox from './FieldCheckbox';
 import { FieldList } from './FieldList';
 
@@ -7,9 +7,9 @@ function AddGroup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
 
   const [cat, setCat] = useState(FieldList);
-  console.log(cat);
+
   const catSort = () => {
-    let catArray = [...FieldList];
+    let catArray = FieldList;
     console.log(catArray);
     catArray.sort(function (a, b) {
       if (a.name < b.name) {
@@ -22,27 +22,75 @@ function AddGroup(props) {
       return 0;
     });
     setCat({ ...cat, FieldList: catArray });
-    console.log(...cat);
+
     console.log(catArray);
   };
 
-  //Creating tag list
+  //Sort Z-A
+  const [catZ, setCatZ] = useState(FieldList);
+  const catSortZ = () => {
+    let catArrayZ = FieldList;
+    console.log(catArrayZ);
+    catArrayZ.sort(function (a, b) {
+      if (a.name < b.name) {
+        return 1;
+      }
+      if (a.name > b.name) {
+        return -1;
+      }
 
-  const catalog = setCat.map(({ id, name, i, catArray }, index) => {
+      return 0;
+    });
+    setCatZ({ ...catZ, FieldList: catArrayZ });
+
+    console.log(catArrayZ);
+  };
+
+  
+  
+  
+
+   //Selected Count
+   const [isCheck, setIsCheck] = useState([]);
+  const handleClick = e => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter(item => item !== id));
+    }
+  };
+  
+  
+  //Search Feature / Creating tag list
+  const [searchQ, setSearchQ] = useState("");
+  console.log(isCheck);
+  const catalog = FieldList.filter((user)=> user.name.toLowerCase().includes(searchQ)).map(({ id, name, i}, index) => {
     return (
-      <div key={index} className="mt-2 ml-3 flex">
+      <div key={id} className="mt-2 ml-3 flex">
         <input
           key={i}
           type="checkbox"
           name={name}
           id={id}
-          // onChange={handleClick[index]}
-          // checked={isChecked}
+          value="include"
+          
+          onChange={handleClick}
+          checked={isCheck.includes(id)}
+         
+          
         />
+       
         <span className="ml-2 align-middle"> {name}</span>
       </div>
     );
   });
+
+
+
+  //Select All
+ 
+
+  
 
   return props.trigger ? (
     <div className="popup fixed flex top-0 left-0 w-full h-screen justify-center items-center">
@@ -79,6 +127,7 @@ function AddGroup(props) {
                 <div className=" text-sm mt-1.5 mr-2">Filter:</div>
                 <input
                   type="text"
+                  onChange={e=> setSearchQ(e.target.value)}
                   className="mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0"
                 ></input>
               </div>
@@ -92,28 +141,29 @@ function AddGroup(props) {
 
                 <div className="flex justify-between ml-3 mt-1 mb-3">
                   <div>
-                    <input
-                      type="checkbox"
-                      id="selectAll"
-                      name="selectAll"
-                      value="include"
-                      class="border-1 border-grey-300 text-blue-500 shadow-sm focus:border-blue-300 checked:bg-blue-500 mt-1 mr-2"
-                    />
+                  <input
+                  type="checkbox"
+                  name="selectAll"
+                  id="selectAll"
+                  
+                />
                   </div>
 
                   <div>
-                    <button className="" onClick={() => catSort()}>
+                    <button
+                      className=""
+                      onClick={(FieldList) => catSort(FieldList)}
+                    >
                       <i class="fa-solid fa-arrow-down-a-z fa-lg mr-2 p-1"></i>
                     </button>
-                    <button>
+                    <button onClick={(FieldList) => catSortZ(FieldList)}>
                       <i className="fa-solid fa-arrow-up-z-a fa-lg mr-2 p-1"></i>
                     </button>
                   </div>
 
-                  <div className="mr-5">0</div>
+                  <div className="mr-5">{isCheck.length}</div>
                 </div>
               </div>
-
               {catalog}
             </div>
 

@@ -32,8 +32,6 @@ function App() {
 //   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
 //   const [buttonEditGroup, setButtonEditGroup] = useState(false);
   
-  
-
 
   
   return (
@@ -169,21 +167,12 @@ function App() {
   
           </div>
         </div>
-      
-
-
-
-       
-
-
-
-
 
     
       </div>
 
 
-   
+      
 
     
   );
