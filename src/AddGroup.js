@@ -48,18 +48,9 @@ function AddGroup(props) {
 
   //Selected Count
   const [isCount, setIsCount] = useState([]);
-  const handleClick = (e) => {
-    const { id, checked } = e.target;
-    setIsCount([...isCount, id]);
-    if (!checked) {
-      setIsCount(isCount.filter((item) => item !== id));
-    }
-  };
 
   //Search Feature / Creating tag list
   const [searchQ, setSearchQ] = useState('');
-  const [checkedAll, setCheckedAll] = useState(false);
-  const [checked, setChecked] = useState(FieldList);
   //console.log(isCount);
   const catalog = FieldList.filter((user) =>
     user.name.toLowerCase().includes(searchQ)
@@ -72,10 +63,8 @@ function AddGroup(props) {
           name={name}
           id={id}
           //value="include"
-          onChange={handleClick}
-          //checked={isCount.includes(id)}
-          onClick={() => toggleCheck(index)}
-          checked={checked[index]}
+          onChange={() => toggleCheck(id)}
+          checked={isCount.includes(id)}
         />
 
         <span className="ml-2 align-middle"> {name}</span>
@@ -84,37 +73,23 @@ function AddGroup(props) {
   });
 
   //Select All
-  const toggleCheck = (selectName) => {
-    setChecked((prevState) => {
-      const newState = { ...prevState };
-      newState[selectName] = !prevState[selectName];
-      return newState;
+  const toggleCheck = (id) => {
+    setIsCount((selectedItems) => {
+      if (selectedItems.includes(id)) {
+        return selectedItems.filter((f) => f !== id);
+      }
+
+      return [...selectedItems, id];
     });
   };
   const selectAll = (value) => {
-    setCheckedAll(value);
-    setChecked((prevState) => {
-      const newState = { ...prevState };
-      for (const selectName in newState) {
-        newState[selectName] = value;
-      }
-      return newState;
-    });
-  };
+    if (value === true) {
+      setIsCount(FieldList.map((f) => f.id));
+      return;
+    }
 
-  useEffect(() => {
-    let allChecked = true;
-    for (const selectName in checked) {
-      if (checked[selectName] === false) {
-        allChecked = false;
-      }
-    }
-    if (allChecked) {
-      setCheckedAll(true);
-    } else {
-      setCheckedAll(false);
-    }
-  }, [checked]);
+    setIsCount([]);
+  };
 
   return props.trigger ? (
     <div className="popup fixed flex top-0 left-0 w-full h-screen justify-center items-center">
@@ -167,8 +142,10 @@ function AddGroup(props) {
                   <div>
                     <input
                       type="checkbox"
-                      onClick={(event) => selectAll(event.target.checked)}
-                      checked={checkedAll}
+                      onChange={(event) =>
+                        selectAll(event.currentTarget.checked)
+                      }
+                      checked={isCount.length === FieldList.length}
                     />
                   </div>
 
