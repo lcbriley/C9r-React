@@ -46,25 +46,24 @@ function AddGroup(props) {
     console.log(catArrayZ);
   };
 
-  
-  
-  
-
-   //Selected Count
-   const [isCheck, setIsCheck] = useState([]);
-  const handleClick = e => {
+  //Selected Count
+  const [isCount, setIsCount] = useState([]);
+  const handleClick = (e) => {
     const { id, checked } = e.target;
-    setIsCheck([...isCheck, id]);
+    setIsCount([...isCount, id]);
     if (!checked) {
-      setIsCheck(isCheck.filter(item => item !== id));
+      setIsCount(isCount.filter((item) => item !== id));
     }
   };
-  
-  
+
   //Search Feature / Creating tag list
-  const [searchQ, setSearchQ] = useState("");
-  console.log(isCheck);
-  const catalog = FieldList.filter((user)=> user.name.toLowerCase().includes(searchQ)).map(({ id, name, i}, index) => {
+  const [searchQ, setSearchQ] = useState('');
+  const [checkedAll, setCheckedAll] = useState(false);
+  const [checked, setChecked] = useState(FieldList);
+  //console.log(isCount);
+  const catalog = FieldList.filter((user) =>
+    user.name.toLowerCase().includes(searchQ)
+  ).map(({ id, name, i }, index) => {
     return (
       <div key={id} className="mt-2 ml-3 flex">
         <input
@@ -72,25 +71,50 @@ function AddGroup(props) {
           type="checkbox"
           name={name}
           id={id}
-          value="include"
-          
+          //value="include"
           onChange={handleClick}
-          checked={isCheck.includes(id)}
-         
-          
+          //checked={isCount.includes(id)}
+          onClick={() => toggleCheck(index)}
+          checked={checked[index]}
         />
-       
+
         <span className="ml-2 align-middle"> {name}</span>
       </div>
     );
   });
 
-
-
   //Select All
- 
+  const toggleCheck = (selectName) => {
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      newState[selectName] = !prevState[selectName];
+      return newState;
+    });
+  };
+  const selectAll = (value) => {
+    setCheckedAll(value);
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      for (const selectName in newState) {
+        newState[selectName] = value;
+      }
+      return newState;
+    });
+  };
 
-  
+  useEffect(() => {
+    let allChecked = true;
+    for (const selectName in checked) {
+      if (checked[selectName] === false) {
+        allChecked = false;
+      }
+    }
+    if (allChecked) {
+      setCheckedAll(true);
+    } else {
+      setCheckedAll(false);
+    }
+  }, [checked]);
 
   return props.trigger ? (
     <div className="popup fixed flex top-0 left-0 w-full h-screen justify-center items-center">
@@ -127,13 +151,13 @@ function AddGroup(props) {
                 <div className=" text-sm mt-1.5 mr-2">Filter:</div>
                 <input
                   type="text"
-                  onChange={e=> setSearchQ(e.target.value)}
+                  onChange={(e) => setSearchQ(e.target.value)}
                   className="mt-1 rounded w-1/2 border border-grey-500 shadow-sm h-7 p-1 focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0"
                 ></input>
               </div>
             </div>
 
-            <div className="mt-6 border border-grey-300 h-80">
+            <div className="mt-6 border border-grey-300 h-80 overflow-auto">
               <div className="border-b">
                 <div className="text-center p-2 font-semibold">
                   Field Selection
@@ -141,12 +165,11 @@ function AddGroup(props) {
 
                 <div className="flex justify-between ml-3 mt-1 mb-3">
                   <div>
-                  <input
-                  type="checkbox"
-                  name="selectAll"
-                  id="selectAll"
-                  
-                />
+                    <input
+                      type="checkbox"
+                      onClick={(event) => selectAll(event.target.checked)}
+                      checked={checkedAll}
+                    />
                   </div>
 
                   <div>
@@ -161,10 +184,10 @@ function AddGroup(props) {
                     </button>
                   </div>
 
-                  <div className="mr-5">{isCheck.length}</div>
+                  <div className="mr-5">{isCount.length}</div>
                 </div>
               </div>
-              {catalog}
+              <div> {catalog}</div>
             </div>
 
             <div className="flex justify-end mt-8">
