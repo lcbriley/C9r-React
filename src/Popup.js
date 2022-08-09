@@ -125,7 +125,7 @@ function Popup(props) {
           </button>
         </Tooltip>
 
-        <div className="" trigger={buttonPopup} setTrigger={setButtonPopup}>
+        <div className="overflow-auto" trigger={buttonPopup} setTrigger={setButtonPopup}>
           <div className="flex flex-shrink-0 items-center justify-between p-1 border-b border-gray-200">
             <h5 className="text-lg mb-2 font-medium leading-normal text-gray-800">
               Modify Fields
