@@ -1,17 +1,10 @@
-//import logo from './logo.svg';
-import './App.css';
 
-//import Tooltip from '@mui/material/Tooltip';
-//import {AddField} from './AddField';
-//import Main from './Main.js'
+import './App.css';
 import './babel.config.js';
 import { useState } from 'react';
 import {Helmet} from "react-helmet";
-//import React, { Component } from 'react'
-//import Collapsible from 'react-collapsible';
 import Popup from './Popup';
-//import Visibility from './visibility';
-
+import { Groups } from './Groups';
 
 
 
@@ -27,11 +20,6 @@ function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
   
  
-
-  //  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
-//   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
-//   const [buttonEditGroup, setButtonEditGroup] = useState(false);
-
 
 
   return (
@@ -167,7 +155,22 @@ function App() {
   
           </div>
         </div>
-      
+        {Groups.map((field, index) => (
+          <div key={index}>
+            <h2>Name: {field.name}</h2>
+            { console.log(Groups)}
+            {field.fields.map((d, index) => (
+              <div key={index}>
+                <h2>FN: {d.fieldName}</h2>
+                { console.log(d.fieldName)}
+              </div>
+              
+            ))}
+            { console.log(field.fields)}
+            
+            <hr />
+          </div>
+            ))}
 
         </div>
     
