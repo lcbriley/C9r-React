@@ -9,9 +9,18 @@ export const Groups = [
     expanded: false,
     fieldGroupId: 1,
     fields: [
-      {
-        name: 'Field for Global',
+        {
+        id: "1",
+        fieldName: "USER CREATED Field 1",
+        scope: "Global",
+        fieldType: "Yes/No",
+        user: "Claire Briley",
+        //fieldGroupId: 4
+        familyTagging: true,
+        quickSearch: true,
+        toggled: false
       },
+      
     ],
   },
   {
@@ -33,6 +42,21 @@ export const Groups = [
     toggled: false,
     expanded: false,
     fieldGroupId: 3,
+    fields: [
+      
+        {
+        id: "2",
+        fieldName: "USER CREATED Field 2",
+        scope: "Global",
+        fieldType: "Date",
+        user: "Claire Briley",
+        //fieldGroupId: 3,
+        familyTagging: false,
+        quickSearch: true,
+        toggled: false
+      },
+      
+    ],
   },
   {
     id: '4',

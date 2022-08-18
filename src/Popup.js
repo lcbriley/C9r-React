@@ -163,18 +163,15 @@ function Popup(props) {
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                     >
-                      {itemsArr.map(
-                        (
-                          {
+                      {itemsArr.map(({
                             f,
                             idx,
                             id,
                             name,
                             count,
                             userCreated,
-                            fieldGroupId,
-                          },
-                          index
+                            
+                          },index
                         ) => {
                           return (
                             <Draggable key={id} draggableId={id} index={index}>
@@ -186,33 +183,22 @@ function Popup(props) {
                                   {...provided.dragHandleProps}
                                 >
                                   <Accordion
-                                    title={
-                                      <div className="global-section border-b text-left py-3 justify-between flex">
+                                    title={<div className="global-section border-b text-left py-3 justify-between flex">
                                         <div className="justify-start space-x-4 flex">
                                           <div className="">
                                             <i class="fa-solid fa-bars"></i>
                                           </div>
-                                          <div>
-                                            {' '}
-                                            {name}{' '}
-                                            <span className="rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-1">
+                                          <div>{name}
+                                            <span className="rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-2">
                                               {count}
                                             </span>
                                           </div>
-                                          <div>{fieldGroupId}</div>
+                                          
                                         </div>
-                                        <div
-                                          className="inline-flex"
-                                          item={itemsArr.id}
-                                        >
+                                        <div className="inline-flex" item={itemsArr.id}>
                                           {userCreated === 2 ? (
                                             <Tooltip>
-                                              <button
-                                                onClick={() =>
-                                                  setButtonEditGroup(true)
-                                                }
-                                                className="mr-3"
-                                              >
+                                              <button onClick={() =>setButtonEditGroup(true) } className="mr-3">
                                                 <i class="fa-solid fa-pencil"></i>
                                               </button>
                                             </Tooltip>
@@ -220,12 +206,7 @@ function Popup(props) {
 
                                           {userCreated === 2 ? (
                                             <Tooltip title="Delete" arrow>
-                                              <button
-                                                onClick={() =>
-                                                  setButtonDeleteGroup(true)
-                                                }
-                                                className="mr-3"
-                                              >
+                                              <button onClick={() => setButtonDeleteGroup(true) } className="mr-3">
                                                 <i class="fa-solid   fa-trash-can"></i>
                                               </button>
                                             </Tooltip>
@@ -235,19 +216,13 @@ function Popup(props) {
                                             <button
                                               key={index}
                                               className="mr-3"
-                                              onClick={() =>
-                                                toggleEyeActive(index)
-                                              }
-                                            >
+                                              onClick={() =>toggleEyeActive(index) }>
                                               {toggleEye(index)}
                                             </button>
                                           </Tooltip>
 
                                           <Tooltip title="Move to Top" arrow>
-                                            <button
-                                              className="mr-3"
-                                              onClick={() => move(index, 0)}
-                                            >
+                                            <button className="mr-3" onClick={() => move(index, 0)} >
                                               <i class="fa-solid fa-arrow-up"></i>
                                             </button>
                                           </Tooltip>
@@ -255,11 +230,8 @@ function Popup(props) {
                                           <button
                                             key={index}
                                             className="mr-3"
-                                            onClick={() =>
-                                              toggleArrowActive(index)
-                                            }
-                                          >
-                                            {toggleArrow(index)}{' '}
+                                            onClick={() => toggleArrowActive(index)}>
+                                            {toggleArrow(index)}
                                           </button>
                                         </div>
                                       </div>

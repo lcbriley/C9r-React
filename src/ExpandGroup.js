@@ -60,97 +60,94 @@ function ExpandGroup(props) {
   return props.trigger ? (
     <div className="wrapper">
       <DragDropContext onDragEnd={handleOnDragEndFields}>
-        <Droppable droppableId="fields">
-          {(provided) => (
-            <ul
-              className="fields"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {fieldsArr.map(
-                (
-                  { id, fieldName, fieldType, familyTagging, user, toggled },
-                  index
-                ) => {
-                  return (
-                    <Draggable key={id} draggableId={id} index={index}>
-                      {(provided) => (
-                        <li
-                          key={index}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                        >
-                          <div className="mt-1 ml-4 flex justify-between border-b pb-2">
-                            <div className="">
-                              <span className="">
-                                <i class="fa-solid fa-bars mr-3"></i>
-                              </span>
-                              {fieldName}
-                            </div>
-                            <div>{fieldType || ''}</div>
-                            <div>{Groups.fieldGroupId}</div>
-                            <div>{Groups.fields}</div>
+    <Droppable droppableId="fields">
+      {(provided) => (
+        <ul
+          className="fields"
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          {fieldsArr.map(
+            (
+              { id, fieldName, fieldType, familyTagging, user, toggled },
+              index
+            ) => {
+              return (
+                <Draggable key={id} draggableId={id} index={index}>
+                  {(provided) => (
+                    <li
+                      key={index}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                <div className="mt-1 ml-4 flex justify-between border-b pb-2">
+                  <div className="">
+                    <span className="">
+                      <i class="fa-solid fa-bars mr-3"></i>
+                    </span>
+                    {fieldName}
+                  </div>
+                  <div>{fieldType || ''}</div>
+                  <div>{Groups.fieldGroupId}</div>
+                  <div>{Groups.fields}</div>
 
-                            <div>
-                              {familyTagging === false ? (
-                                ' '
-                              ) : (
-                                <i class="fa-solid fa-user-tag"></i>
-                              )}
-                            </div>
-                            <div>By: {user}</div>
-                            <div className="" item={fieldsArr.id}>
-                              <Tooltip title="Edit" arrow>
-                                <button
-                                  onClick={() => setButtonEditField(true)}
-                                  className="mr-3"
-                                >
-                                  <i class="fa-solid fa-pencil"></i>
-                                </button>
-                              </Tooltip>
-                              <Tooltip title="Visiblity" arrow>
-                                <button
-                                  key={index}
-                                  className="mr-3"
-                                  onClick={() => toggleEyeActive(index)}
-                                >
-                                  {toggled === true ? (
-                                    <i className="fa-regular fa-eye-slash"></i>
-                                  ) : (
-                                    <i className="fa-regular fa-eye"></i>
-                                  )}
-                                </button>
-                              </Tooltip>
-                              <Tooltip title="Move to Top" arrow>
-                                <button
-                                  className="mr-3"
-                                  onClick={() => move(index, 0)}
-                                >
-                                  <i class="fa-solid fa-arrow-up"></i>
-                                </button>
-                              </Tooltip>
-                            </div>
-                          </div>
+                  <div>
+                    {familyTagging === false ? (
+                      ' '
+                    ) : (
+                      <i class="fa-solid fa-user-tag"></i>
+                    )}
+                  </div>
+                  <div>By: {user}</div>
+                  <div className="" item={fieldsArr.id}>
+                    <Tooltip title="Edit" arrow>
+                      <button
+                        onClick={() => setButtonEditField(true)}
+                        className="mr-3"
+                      >
+                        <i class="fa-solid fa-pencil"></i>
+                      </button>
+                    </Tooltip>
+                    <Tooltip title="Visiblity" arrow>
+                      <button
+                        key={index}
+                        className="mr-3"
+                        onClick={() => toggleEyeActive(index)}
+                      >
+                        {toggled === true ? (
+                          <i className="fa-regular fa-eye-slash"></i>
+                        ) : (
+                          <i className="fa-regular fa-eye"></i>
+                        )}
+                      </button>
+                    </Tooltip>
+                    <Tooltip title="Move to Top" arrow>
+                      <button className="mr-3" onClick={() => move(index, 0)}>
+                        <i class="fa-solid fa-arrow-up"></i>
+                      </button>
+                    </Tooltip>
+                  </div>
+                </div>
 
-                          <div className="mt-2">
-                            <EditField
-                              trigger={buttonEditField}
-                              setTrigger={setButtonEditField}
-                            />
-                          </div>
-                        </li>
-                      )}
-                    </Draggable>
-                  );
-                }
+                <div className="mt-2">
+                  <EditField
+                    trigger={buttonEditField}
+                    setTrigger={setButtonEditField}
+                  />
+                </div>
+              </li>
               )}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+              </Draggable>            
+              );
+          }
+        )}
+        {provided.placeholder}
+              </ul>
+              )}
+              </Droppable>
+            </DragDropContext>
+             </div>
   ) : (
     ''
   );

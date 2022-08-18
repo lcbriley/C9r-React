@@ -25,15 +25,15 @@ import Popup from './Popup';
 
 function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
+  
  
 
-
-//  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
+  //  const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
 //   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
 //   const [buttonEditGroup, setButtonEditGroup] = useState(false);
-  
 
-  
+
+
   return (
       <div className="App">
 <Helmet><script src="https://kit.fontawesome.com/1348f1f9e7.js" crossorigin="anonymous"></script></Helmet>
@@ -167,15 +167,15 @@ function App() {
   
           </div>
         </div>
-
-    
-      </div>
-
-
       
 
+        </div>
     
-  );
+  
+  
+  
+  
+         );
 }
 
 export default App;
