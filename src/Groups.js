@@ -8,9 +8,10 @@ export const Groups = [
     toggled: false,
     expanded: false,
     fieldGroupId: 1,
+    position: 1,
     fields: [
         {
-        id: "1",
+        id: '1',
         fieldName: "USER CREATED Field 1",
         scope: "Global",
         fieldType: "Yes/No",
@@ -18,7 +19,8 @@ export const Groups = [
         //fieldGroupId: 4
         familyTagging: true,
         quickSearch: true,
-        toggled: false
+        toggledF: false,
+        positionF: 1,
       },
       
     ],
@@ -32,6 +34,8 @@ export const Groups = [
     toggled: false,
     expanded: false,
     fieldGroupId: 2,
+    position: 2,
+    fields: [],
   },
   {
     id: '3',
@@ -42,10 +46,11 @@ export const Groups = [
     toggled: false,
     expanded: false,
     fieldGroupId: 3,
+    position: 3,
     fields: [
       
         {
-        id: "2",
+        id: '2',
         fieldName: "USER CREATED Field 2",
         scope: "Global",
         fieldType: "Date",
@@ -53,7 +58,8 @@ export const Groups = [
         //fieldGroupId: 3,
         familyTagging: false,
         quickSearch: true,
-        toggled: false
+        toggledF: false,
+        positionF: 1,
       },
       
     ],
@@ -67,5 +73,7 @@ export const Groups = [
     toggled: false,
     expanded: false,
     fieldGroupId: 4,
+    position: 4,
+    fields: [],
   },
 ];
