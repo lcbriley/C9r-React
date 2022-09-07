@@ -1,6 +1,6 @@
 export const Groups = [
   {
-    id: '1',
+    id: 1,
     single: '1',
     name: 'Global',
     count: 3,
@@ -11,7 +11,7 @@ export const Groups = [
     position: 1,
     fields: [
         {
-        id: '1',
+        //id: "1",
         fieldName: "USER CREATED Field 1",
         scope: "Global",
         fieldType: "Yes/No",
@@ -26,7 +26,7 @@ export const Groups = [
     ],
   },
   {
-    id: '2',
+    id: 2,
     single: '2',
     name: 'Private',
     count: 4,
@@ -38,7 +38,7 @@ export const Groups = [
     fields: [],
   },
   {
-    id: '3',
+    id: 3,
     single: '3',
     name: 'System',
     count: 7,
@@ -50,7 +50,7 @@ export const Groups = [
     fields: [
       
         {
-        id: '2',
+        //id: '2',
         fieldName: "USER CREATED Field 2",
         scope: "Global",
         fieldType: "Date",
@@ -65,7 +65,7 @@ export const Groups = [
     ],
   },
   {
-    id: '4',
+    id: 4,
     single: '4',
     name: 'USER CREATED',
     count: 3,
@@ -76,4 +76,6 @@ export const Groups = [
     position: 4,
     fields: [],
   },
+ 
+
 ];

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import {Helmet} from "react-helmet";
 import Popup from './Popup';
 import { Groups } from './Groups';
+import { Tooltip } from '@mui/material';
 
 
 
@@ -18,8 +19,158 @@ import { Groups } from './Groups';
 
 function App() {
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   
- 
+  const FieldGroup = ({ field }) => {
+    
+    return (
+     <div >
+        <div>
+          <div className="flex flex-row p-2 bg-white-200 ">
+            
+            
+            <div className="inline-flex" //item={item.id}
+            >
+              {field.userCreated === 2 ? (
+                <Tooltip>
+                  <button  className="mr-3">
+                    <i class="fa-solid fa-pencil"></i>
+                  </button>
+                </Tooltip>
+              ) : null}
+        
+              {field.userCreated === 2 ? (
+                <Tooltip title="Delete" arrow>
+                  <button  className="mr-3">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </Tooltip>
+              ) : null}
+        
+              <Tooltip title="Visiblity" arrow>
+                <button
+                  key={field.index}
+                  className="mr-3"
+                  
+  
+                  >
+                  {/*{toggleEyeG(index)}*/}
+                </button>
+              </Tooltip>
+        
+              <Tooltip title="Move to Top" arrow>
+                <button className="mr-3"  >
+                  <i class="fa-solid fa-arrow-up"></i>
+                </button>
+              </Tooltip>
+        
+             {/* <button
+                key={f.id}
+                className="mr-3"
+                onClick={() => setIsOpen((o) => !o)}
+                
+              
+                //onChange={() => toggleArrowActiveG(item.index)}
+                >
+             
+                {isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}
+              </button>*/}
+              
+            </div>
+              <button onClick={() => setIsOpen((o) => !o)}>
+              {isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}
+              </button>
+           
+          </div>
+  
+          
+        </div>
+     <div>
+          <Accordian open={isOpen} >
+                <div className="flex-1 flex flex-col">
+                  {field.fields.map((d, idx) => (
+                    <ul key={idx}>
+                    <li
+                    //{...provided.draggableProps} ref= {provided.innerRef}
+                    >
+                    <div className="mt-1 ml-4 flex justify-between border-b pb-2"
+                     //{...provided.dragHandleProps}
+                     >
+                   
+                  <div>
+                      <span className="">
+                        <i class="fa-solid fa-bars mr-3"></i>
+                      </span>
+                      {d.fieldName}
+                  </div>
+                  
+                  <div>{d.fieldType || ''}</div>
+                 
+           
+                  <div>
+                    {d.familyTagging === false ? (
+                      ' '
+                    ) : (
+                      <i class="fa-solid fa-user-tag"></i>
+                    )}
+                  </div>
+                  <div>By: {d.user}</div>
+                  <div className="" 
+                  //item={itemArr.id}
+                  >
+                    <Tooltip title="Edit" arrow>
+                      <button
+                       //onClick={() => setButtonEditField(true)}
+                        className="mr-3"
+                      >
+                        <i class="fa-solid fa-pencil"></i>
+                      </button>
+                    </Tooltip>
+                    <Tooltip title="Visiblity" arrow>
+                      <button
+                        key={d.index}
+                        className="mr-3"
+                        //onClick={() => toggleEyeActiveF(index)}
+                      >
+                    {/* {toggleEyeF(index)}*/}
+                     {d.toggledF === false ? (
+                        <i className="fa-regular fa-eye"></i>
+                      ) : (
+                        <i className="fa-regular fa-eye-slash"></i>
+                      )}
+                      </button>
+                    </Tooltip>
+                    <Tooltip title="Move to Top" arrow>
+                      <button className="mr-3" 
+                      //onClick={() => move(index, 0)}
+                      >
+                        <i class="fa-solid fa-arrow-up"></i>
+                      </button>
+                    </Tooltip>
+                  </div>
+                    </div>
+           
+                    <div className="mt-2">
+                             {/*<EditField
+                               trigger={buttonEditField}
+                               setTrigger={setButtonEditField}
+                        />*/}
+                           </div>
+        
+                  </li>
+                  </ul>
+                  ))}
+                </div>
+              </Accordian>
+     </div>
+     </div>
+    );
+  };
+  
+  
+  const Accordian = ({ open, children }) => {
+    return <div className={open ? 'flex' : 'hidden'}>{children}</div>;
+  };
 
 
   return (
@@ -155,22 +306,79 @@ function App() {
   
           </div>
         </div>
-        {Groups.map((field, index) => (
-          <div key={index}>
-            <h2>Name: {field.name}</h2>
-            { console.log(Groups)}
-            {field.fields.map((d, i) => (
-              <div key={i}>
-                <h2>FN: {d.fieldName}</h2>
-                { console.log(d.fieldName)}
+        
+      {Groups.map((f, idx) => (
+        <div className="global-section border-b text-left py-3 justify-between flex">
+        
+          <div className="justify-start space-x-4 flex">
+              <div className="" 
+              //{...provided.dragHandleProps}
+              >
+                <i class="fa-solid fa-bars"></i>
+              </div>
+              <div>{f.name}
+                <span className="rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-2">
+                  {f.count}
+                </span>
+                
               </div>
               
-            ))}
-            { console.log(field.fields)}
+              
+            </div>
+            <FieldGroup key={idx} field={f} />
+             {/*<div className="inline-flex" //item={item.id}
+          >
+           {f.userCreated === 2 ? (
+              <Tooltip>
+                <button  className="mr-3">
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+              </Tooltip>
+            ) : null}
+      
+            {f.userCreated === 2 ? (
+              <Tooltip title="Delete" arrow>
+                <button  className="mr-3">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </Tooltip>
+            ) : null}
+      
+            <Tooltip title="Visiblity" arrow>
+              <button
+                key={f.index}
+                className="mr-3"
+                
+
+                >
+                {toggleEyeG(index)}
+              </button>
+            </Tooltip>
+      
+            <Tooltip title="Move to Top" arrow>
+              <button className="mr-3"  >
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+            </Tooltip>
+      
+            <button
+              key={f.id}
+              className="mr-3"
+              onClick={() => setIsOpen((o) => !o)}
+              
             
-            <hr />
-          </div>
-            ))}
+              //onChange={() => toggleArrowActiveG(item.index)}
+              >
+           
+              {isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}
+            </button>
+            
+          </div>*/}
+          
+        
+        </div>
+      ))}
+    
 
         </div>
     
@@ -182,3 +390,96 @@ function App() {
 }
 
 export default App;
+
+
+// {Groups.map((field, index) => (
+//   <div key={index}>
+//     <h2>Name: {field.name}</h2>
+//     {/* { console.log(Groups)}*/}
+//     {field.fields.map((d, i) => (
+//       <div key={i}>
+//         <h2>FN: {d.fieldName}</h2>
+
+//       {/*  { console.log(d.fieldName)}*/}
+//       </div>
+      
+//     ))}
+//     {/* { console.log(field.fields)}*/}
+    
+//     <hr />
+//   </div>
+//     ))}
+
+
+
+// {item.fields.map((d, id) => (
+//   <Accordion  open={isOpen}>
+
+//   <ul key={item.id}>
+//     <li
+//     {...provided.draggableProps} ref= {provided.innerRef}>
+//     <div className="mt-1 ml-4 flex justify-between border-b pb-2" {...provided.dragHandleProps}>
+   
+//   <div>
+//       <span className="">
+//         <i class="fa-solid fa-bars mr-3"></i>
+//       </span>
+//       {d.fieldName}
+//   </div>
+  
+//   <div>{d.fieldType || ''}</div>
+ 
+
+//   <div>
+//     {d.familyTagging === false ? (
+//       ' '
+//     ) : (
+//       <i class="fa-solid fa-user-tag"></i>
+//     )}
+//   </div>
+//   <div>By: {d.user}</div>
+//   <div className="" 
+//   //item={itemArr.id}
+//   >
+//     <Tooltip title="Edit" arrow>
+//       <button
+//        onClick={() => setButtonEditField(true)}
+//         className="mr-3"
+//       >
+//         <i class="fa-solid fa-pencil"></i>
+//       </button>
+//     </Tooltip>
+//     <Tooltip title="Visiblity" arrow>
+//       <button
+//         key={d.index}
+//         className="mr-3"
+//         onClick={() => toggleEyeActiveF(index)}
+//       >
+//     {/* {toggleEyeF(index)}*/}
+//      {d.toggledF === false ? (
+//         <i className="fa-regular fa-eye"></i>
+//       ) : (
+//         <i className="fa-regular fa-eye-slash"></i>
+//       )}
+//       </button>
+//     </Tooltip>
+//     <Tooltip title="Move to Top" arrow>
+//       <button className="mr-3" onClick={() => move(index, 0)}>
+//         <i class="fa-solid fa-arrow-up"></i>
+//       </button>
+//     </Tooltip>
+//   </div>
+//     </div>
+
+//     <div className="mt-2">
+//              <EditField
+//                trigger={buttonEditField}
+//                setTrigger={setButtonEditField}
+//         />
+//            </div>
+
+//   </li>
+//   </ul>
+    
+//   </Accordion>
+// ))};
