@@ -159,8 +159,8 @@ function App() {
           <div key={index}>
             <h2>Name: {field.name}</h2>
             { console.log(Groups)}
-            {field.fields.map((d, index) => (
-              <div key={index}>
+            {field.fields.map((d, i) => (
+              <div key={i}>
                 <h2>FN: {d.fieldName}</h2>
                 { console.log(d.fieldName)}
               </div>
@@ -176,7 +176,7 @@ function App() {
     
   
   
-  
+        
   
          );
 }
