@@ -61,6 +61,18 @@ export const Groups = [
         toggledF: false,
         positionF: 1,
       },
+      {
+        //id: '2',
+        fieldName: "USER CREATED Field 3",
+        scope: "Global",
+        fieldType: "Date",
+        user: "Claire Briley",
+        //fieldGroupId: 3,
+        familyTagging: true,
+        quickSearch: false,
+        toggledF: true,
+        positionF: 2,
+      },
       
     ],
   },

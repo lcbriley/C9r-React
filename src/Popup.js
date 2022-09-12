@@ -12,10 +12,11 @@ import { Groups } from './Groups';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {orderBy, range} from "lodash";
 import EditField from './EditField';
+import { faLessThan } from '@fortawesome/free-solid-svg-icons';
 //import { userfields } from './Fields';
 
 function Popup(props) {
-  const [state, changeState] = useState(Groups);
+  
   
   const [buttonEditField, setButtonEditField] = useState(false);
 
@@ -24,7 +25,7 @@ function Popup(props) {
   const [buttonAddGroup, setButtonAddGroup] = useState(false);
   const [buttonDeleteGroup, setButtonDeleteGroup] = useState(false);
   const [buttonEditGroup, setButtonEditGroup] = useState(false);
-  //const [isOpen, setIsOpen] = useState(false);
+ 
   //const [buttonExpandGroup, setButtonExpandGroup] = useState(false);
 
   //Expanding functionality
@@ -34,6 +35,7 @@ function Popup(props) {
   };
 
   // const Accordion = ({ title, children, index }) => {
+
   //   const [isOpen, setOpen] = useState(false);
   //   console.log(isOpen);
   //   return (
@@ -57,7 +59,8 @@ function Popup(props) {
 
 
 
-   //Move to top action
+  
+  //Move to top action
  const [itemsArr, setItemsArr] = useState(Groups);
  //console.log(groupRender)
  const move = (currentIndex, futureIndex) => {
@@ -69,20 +72,35 @@ function Popup(props) {
     const movingItem = tempItemsAray[futureIndex];
     tempItemsAray[currentIndex] = movingItem;
     tempItemsAray[futureIndex] = item;
-    //console.log(movingItem);
-    //console.log(tempItemsAray);
     setItemsArr(tempItemsAray);
   }
 };
 
+// Move to top Fields
+const [fieldsArr, setFieldsArr] = useState({...Groups.fields, id: 1 });
+console.log(fieldsArr );
+const moveF = (currentIndex, futureIndex) => {
+  if (futureIndex !== -1 && futureIndex < fieldsArr.length) {
+    const tempItemsArayF = [...fieldsArr];
+    console.log(tempItemsArayF);
+    const item = tempItemsArayF[currentIndex];
+    const movingItem = tempItemsArayF[futureIndex];
+    tempItemsArayF[currentIndex] = movingItem;
+    tempItemsArayF[futureIndex] = item;
+    setFieldsArr(tempItemsArayF);
+    console.log('move function Fields' );
+  }
+};
+
+
  
 
   //const [characters, updateCharacters] = useState(Groups);
-
+  
   const GroupRender = ({item})=> {
     const [isOpen, setIsOpen] = useState(false);
   return(
-  itemsArr.map ((item, index, id)=>(
+  itemsArr.map ((item, index, d)=>(
 
       <div >
       
@@ -99,7 +117,7 @@ function Popup(props) {
             </div>
             
           </div>
-          <div className="inline-flex" //item={item.id}
+          <div className="inline-flex" item={item.id}
           >
             {item.userCreated === 2 ? (
               <Tooltip>
@@ -143,7 +161,7 @@ function Popup(props) {
               //onClick={() => toggleArrowActiveG(index)}
               >
            
-              {/*{isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}*/} {toggleArrowG (index)}
+              {isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>} {/*{toggleArrowG (index)}*/}
             </button>
             
           </div>
@@ -152,13 +170,13 @@ function Popup(props) {
         
         
          
-          <Accordion open={isOpen} index={index}>
-          {item.fields.map((d, id) => (
+          <Accordion open={isOpen} key={index} field={d}>
+          {item.fields.map((d, index) => (
             
             //open={isOpen}
             
   
-            <ul key={item.id}>
+            <ul key={index}>
               <li
               >
               <div className="mt-1 ml-4 flex justify-between border-b pb-2" >
@@ -196,10 +214,10 @@ function Popup(props) {
                 <button
                   key={d.index}
                   className="mr-3"
-                  onClick={() => toggleEyeActiveF(index)}
+                  onClick={toggleEyeActiveF}
                 >
-              {/* {toggleEyeF(index)}*/}
-               {d.toggledF === false ? (
+             {/* {toggleEyeF(d.toggledF)}*/}
+                {d.toggledF === false ? (
                   <i className="fa-regular fa-eye"></i>
                 ) : (
                   <i className="fa-regular fa-eye-slash"></i>
@@ -207,7 +225,7 @@ function Popup(props) {
                 </button>
               </Tooltip>
               <Tooltip title="Move to Top" arrow>
-                <button className="mr-3" onClick={() => move(index, 0)}>
+                <button className="mr-3" onClick={() => moveF(d.index, 0)}>
                   <i class="fa-solid fa-arrow-up"></i>
                 </button>
               </Tooltip>
@@ -286,7 +304,7 @@ if (directionOfDrag === "DOWN"){
   };
 
   //Eyeicon toggle Groups
-
+  const [state, changeState] = useState(Groups);
   function toggleEyeActiveG(id) {
     let arrayCopy = [...Groups];
 console.log("eye toggle G", arrayCopy);
@@ -308,22 +326,39 @@ console.log("eye toggle G", arrayCopy);
 
    const [stateF, setStateF] = useState({...Groups.fields, toggledF: false});
 
+   console.log(stateF);
 
    function toggleEyeActiveF(id) {
-    let arrayCopyF = {...Groups, fields :{...Groups.fields, toggledF: true}};
+    let arrayCopyF = [{...Groups.fields, toggledF: false}];
 console.log("eye toggle F", arrayCopyF);
-    arrayCopyF[id].toggledF
-      ? (arrayCopyF[id].toggledF = false)
-      : (arrayCopyF[id].toggledF = true);
+      stateF[id].toggledF
+      ? (stateF[id].toggledF = false)
+      : (stateF[id].toggledF = true);
 
-    setStateF({ ...stateF, Groups:arrayCopyF });
+    setStateF({ ...stateF, Groups:arrayCopyF});
   }
 
+//    function toggleEyeActiveF(id) {
+//     let arrayCopyF = [{...Groups.fields, toggledF: false}];
+// console.log("eye toggle F", arrayCopyF);
+//     arrayCopyF[id].toggledF
+//       ? (arrayCopyF[id].toggledF = false)
+//       : (arrayCopyF[id].toggledF = true);
 
+//     setStateF({ ...stateF, Groups:arrayCopyF});
+//   }
 
+// const toggleEyeActiveF = () => {
+//   setStateF(prev => ({
+  
+//       ...prev, fields: !prev.toggledF,
+   
+//   }));
+// };
+console.log(stateF.toggledF);
 
   // function toggleEyeF(index) {
-  //   if ({...Groups, fields: {...Groups.fields, toggledF: true}}) {
+  //   if ({...Groups, fields: {...Groups.fields, toggledF: ""}}) {
   //     return <i className="fa-regular fa-eye-slash"></i>;
   //   } else {
   //     return <i className="fa-regular fa-eye"></i>;
