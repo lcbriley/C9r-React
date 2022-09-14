@@ -62,9 +62,9 @@ function Popup(props) {
   
   //Move to top action
  const [itemsArr, setItemsArr] = useState(Groups);
- //console.log(groupRender)
+
  const move = (currentIndex, futureIndex) => {
-  console.log("move to top")
+  console.log("move to top Groups" , itemsArr)
   if (futureIndex !== -1 && futureIndex < itemsArr.length) {
     const tempItemsAray = [...itemsArr];
     console.log(tempItemsAray);
@@ -78,7 +78,7 @@ function Popup(props) {
 
 // Move to top Fields
 const [fieldsArr, setFieldsArr] = useState({...Groups.fields, id: 1 });
-console.log(fieldsArr );
+//console.log(fieldsArr );
 const moveF = (currentIndex, futureIndex) => {
   if (futureIndex !== -1 && futureIndex < fieldsArr.length) {
     const tempItemsArayF = [...fieldsArr];
@@ -92,34 +92,111 @@ const moveF = (currentIndex, futureIndex) => {
   }
 };
 
+//DRAG AND DROP
+// const onDragEnd = (result) =>{
+//   const {destination, source} = result;
+//   console.log("drag result", destination, source);
+//   if (!destination || !source) {
+//     return;
+//   }
+//   if(destination.droppableId === source.droppableId && destination.index === source.index){
+//     return;
+//   }
+
+// const directionOfDrag = destination.index > source.index ? "DOWN": "UP";
+// console.log("Direction of drag", directionOfDrag)
+
+// //affected range
+// let affectedRange;
+// if (directionOfDrag === "DOWN"){
+//   affectedRange = range(source.index, destination.index + 1)
+// } else{
+//   affectedRange = range(destination.index, source.index)
+// }
+//  console.log("affected range", affectedRange);
+
+// //update position
+//  const reOrderedGroups = Groups.map(group => {
+//   if(group.id === parseInt(result.draggableId)){
+//     console.log("condition 1", group);
+//     group.position = destination.index;
+//     return group;
+//   } else if (affectedRange.includes(group.position)){
+//     if (directionOfDrag === "DOWN") {
+//       group.position = group.position -1;
+//       console.log("condition 2.1", group);
+//       return group;
+//     } else if (directionOfDrag === "UP"){
+//       group.position = group.position +1;
+//       console.log("condition 2.2", group);
+//       return group;
+//     }
+//   } else {
+//     console.log("condition 3", group);
+//     return group;
+//   }
+//  });
+//update Groups State
+//updateCharacters(reOrderedGroups);
+
+ // };
 
  
 
-  //const [characters, updateCharacters] = useState(Groups);
-  
-  const GroupRender = ({item})=> {
+  const [characters, updateCharacters] = useState(Groups);
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+console.log("drag and drop triggered")
+    const items = Array.from(characters);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    updateCharacters(items);
+  }
+
+
+  const GroupRender = ({field, id, index})=> {
     const [isOpen, setIsOpen] = useState(false);
   return(
-  itemsArr.map ((item, index, d)=>(
+  
 
       <div >
-      
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="characters">
+      {(provided) => (
+        <ul
+          className="characters"
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
           <div className="global-section border-b text-left py-3 justify-between flex"
           >
+
+          <Draggable key={id} draggableId={"characters"} index={index}>
+          {(provided) => (
+            <li
+              key={index}
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
           <div className="justify-start space-x-4 flex">
             <div className="" >
               <i class="fa-solid fa-bars"></i>
             </div>
-            <div>{item.name}
+            <div>{field.name}
               <span className="rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-2">
-                {item.count}
+                {field.count}
               </span>
             </div>
             
           </div>
-          <div className="inline-flex" item={item.id}
+          </li>
+                              )}
+                            </Draggable>
+          <div className="inline-flex" field={field.id}
           >
-            {item.userCreated === 2 ? (
+            {field.userCreated === 2 ? (
               <Tooltip>
                 <button onClick={() =>setButtonEditGroup(true) } className="mr-3">
                   <i class="fa-solid fa-pencil"></i>
@@ -127,7 +204,7 @@ const moveF = (currentIndex, futureIndex) => {
               </Tooltip>
             ) : null}
       
-            {item.userCreated === 2 ? (
+            {field.userCreated === 2 ? (
               <Tooltip title="Delete" arrow>
                 <button onClick={() => setButtonDeleteGroup(true) } className="mr-3">
                   <i class="fa-solid fa-trash-can"></i>
@@ -153,7 +230,7 @@ const moveF = (currentIndex, futureIndex) => {
             </Tooltip>
       
             <button
-              key={item.id}
+              key={field.id}
               className="mr-3"
               onClick={() => setIsOpen((o) => !o)}
               
@@ -170,8 +247,9 @@ const moveF = (currentIndex, futureIndex) => {
         
         
          
-          <Accordion open={isOpen} key={index} field={d}>
-          {item.fields.map((d, index) => (
+          <Accordion open={isOpen} >
+          
+          {field.fields.map((d, index) => (
             
             //open={isOpen}
             
@@ -243,97 +321,61 @@ const moveF = (currentIndex, futureIndex) => {
             </ul>
             ))}
             </Accordion>
-       
+
+
+
+            {provided.placeholder}
+            </ul>
+            )}
+            </Droppable>
+            </DragDropContext>
       </div>
      
 
 
    
-  ))
+  
                ) };
   
   
   
-//DRAG AND DROP
-const onDragEnd = (result) =>{
-  const {destination, source} = result;
-  console.log("drag result", destination, source);
-  if (!destination || !source) {
-    return;
-  }
-  if(destination.droppableId === source.droppableId && destination.index === source.index){
-    return;
-  }
 
-const directionOfDrag = destination.index > source.index ? "DOWN": "UP";
-console.log("Direction of drag", directionOfDrag)
-
-//affected range
-let affectedRange;
-if (directionOfDrag === "DOWN"){
-  affectedRange = range(source.index, destination.index + 1)
-} else{
-  affectedRange = range(destination.index, source.index)
-}
- console.log("affected range", affectedRange);
-
-//update position
- const reOrderedGroups = Groups.map(group => {
-  if(group.id === parseInt(result.draggableId)){
-    console.log("condition 1", group);
-    group.position = destination.index;
-    return group;
-  } else if (affectedRange.includes(group.position)){
-    if (directionOfDrag === "DOWN") {
-      group.position = group.position -1;
-      console.log("condition 2.1", group);
-      return group;
-    } else if (directionOfDrag === "UP"){
-      group.position = group.position +1;
-      console.log("condition 2.2", group);
-      return group;
-    }
-  } else {
-    console.log("condition 3", group);
-    return group;
-  }
- });
-//update Groups State
-//updateCharacters(reOrderedGroups);
-
-  };
 
   //Eyeicon toggle Groups
   const [state, changeState] = useState(Groups);
-  function toggleEyeActiveG(id) {
+  
+  function toggleEyeActiveG(index) {
     let arrayCopy = [...Groups];
 console.log("eye toggle G", arrayCopy);
-    arrayCopy[id].toggled
-      ? (arrayCopy[id].toggled = false)
-      : (arrayCopy[id].toggled = true);
-
+    arrayCopy[index].toggled
+      ? (arrayCopy[index].toggled = false)
+      : (arrayCopy[index].toggled = true);
+      console.log("eye toggle G", Groups[index].toggled);
     changeState({ ...state, Groups: arrayCopy });
   }
-  function toggleEyeG(id) {
-    if (Groups[id].toggled) {
+  function toggleEyeG(index) {
+    if (Groups.toggled) {
+     // console.log("eye toggle G", Groups[index].toggled);
       return <i className="fa-regular fa-eye-slash"></i>;
     } else {
       return <i className="fa-regular fa-eye"></i>;
     }
   }
 
+  console.log(state);
+
    // Toggle Eye Function Fields
 
    const [stateF, setStateF] = useState({...Groups.fields, toggledF: false});
 
-   console.log(stateF);
+   //console.log(stateF);
 
-   function toggleEyeActiveF(id) {
+   function toggleEyeActiveF(index) {
     let arrayCopyF = [{...Groups.fields, toggledF: false}];
 console.log("eye toggle F", arrayCopyF);
-      stateF[id].toggledF
-      ? (stateF[id].toggledF = false)
-      : (stateF[id].toggledF = true);
+      stateF[index].toggledF
+      ? (stateF[index].toggledF = false)
+      : (stateF[index].toggledF = true);
 
     setStateF({ ...stateF, Groups:arrayCopyF});
   }
@@ -355,7 +397,7 @@ console.log("eye toggle F", arrayCopyF);
    
 //   }));
 // };
-console.log(stateF.toggledF);
+//console.log(stateF.toggledF);
 
   // function toggleEyeF(index) {
   //   if ({...Groups, fields: {...Groups.fields, toggledF: ""}}) {
@@ -430,10 +472,15 @@ console.log(stateF.toggledF);
               </Tooltip>
             </div>
             <div >
+
+            {itemsArr.map ((d, index)=>(
          
-                    <GroupRender/>
+                    <GroupRender key={index} field= {d}/>
                     
-         
+                    ))}
+
+
+
             </div>
 
             <AddGroup trigger={buttonAddGroup} setTrigger={setButtonAddGroup} />
