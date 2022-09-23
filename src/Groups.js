@@ -1,6 +1,6 @@
 export const Groups = [
   {
-    id: 1,
+    id: "1",
     single: '1',
     name: 'Global',
     count: 3,
@@ -26,7 +26,7 @@ export const Groups = [
     ],
   },
   {
-    id: 2,
+    id: "2",
     single: '2',
     name: 'Private',
     count: 4,
@@ -38,7 +38,7 @@ export const Groups = [
     fields: [],
   },
   {
-    id: 3,
+    id: "3",
     single: '3',
     name: 'System',
     count: 7,
@@ -77,7 +77,7 @@ export const Groups = [
     ],
   },
   {
-    id: 4,
+    id: "4",
     single: '4',
     name: 'USER CREATED',
     count: 3,

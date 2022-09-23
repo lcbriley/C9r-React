@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import React from 'react';
 import './Popup.css';
-import { useState, setState } from 'react';
+import { useState} from 'react';
 import AddField from './AddField';
 import AddGroup from './AddGroup';
 import DeleteGroup from './DeleteGroup';
@@ -10,10 +10,9 @@ import { Groups } from './Groups';
 //import {userfields} from './Fields';
 //import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import {orderBy, range} from "lodash";
+//import {orderBy, range} from "lodash";
 import EditField from './EditField';
-import { faLessThan } from '@fortawesome/free-solid-svg-icons';
-//import { userfields } from './Fields';
+
 
 function Popup(props) {
   
@@ -61,20 +60,21 @@ function Popup(props) {
 
   
   //Move to top action
- const [itemsArr, setItemsArr] = useState(Groups);
+ //const [itemsArr, setItemsArr] = useState(Groups);
 
  const move = (currentIndex, futureIndex) => {
-  console.log("move to top Groups" , itemsArr)
-  if (futureIndex !== -1 && futureIndex < itemsArr.length) {
-    const tempItemsAray = [...itemsArr];
+  console.log("move to top Groups" , state)
+  if (futureIndex !== -1 && futureIndex < state.length) {
+    const tempItemsAray = [...state];
     console.log(tempItemsAray);
     const item = tempItemsAray[currentIndex];
     const movingItem = tempItemsAray[futureIndex];
     tempItemsAray[currentIndex] = movingItem;
     tempItemsAray[futureIndex] = item;
-    setItemsArr(tempItemsAray);
+    changeState(tempItemsAray);
   }
 };
+//console.log(itemsArr)
 
 // Move to top Fields
 const [fieldsArr, setFieldsArr] = useState({...Groups.fields, id: 1 });
@@ -143,43 +143,37 @@ const moveF = (currentIndex, futureIndex) => {
 
  
 
-  const [characters, updateCharacters] = useState(Groups);
+  //const [characters, updateCharacters] = useState(Groups);
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-console.log("drag and drop triggered")
-    const items = Array.from(characters);
+    
+    const items = Array.from(state);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
-    updateCharacters(items);
+    //console.log("drag and drop triggered", result.source.index)
+    changeState(items);
   }
 
 
-  const GroupRender = ({field, id, index})=> {
+  const GroupRender = ({field, index: idGroup}, )=> {
     const [isOpen, setIsOpen] = useState(false);
   return(
   
 
       <div >
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="characters">
-      {(provided) => (
-        <ul
-          className="characters"
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-        >
-          <div className="global-section border-b text-left py-3 justify-between flex"
-          >
-
-          <Draggable key={id} draggableId={"characters"} index={index}>
+      <Draggable key={idGroup} draggableId={field.id} index={idGroup}>
           {(provided) => (
             <li
-              key={index}
+              key={field.id}
+            
               ref={provided.innerRef}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
+          <div className="global-section border-b text-left py-3 justify-between flex"
+          >
+
+          
           <div className="justify-start space-x-4 flex">
             <div className="" >
               <i class="fa-solid fa-bars"></i>
@@ -191,9 +185,7 @@ console.log("drag and drop triggered")
             </div>
             
           </div>
-          </li>
-                              )}
-                            </Draggable>
+          
           <div className="inline-flex" field={field.id}
           >
             {field.userCreated === 2 ? (
@@ -214,17 +206,17 @@ console.log("drag and drop triggered")
       
             <Tooltip title="Visiblity" arrow>
               <button
-                key={index}
+                key={idGroup}
                 className="mr-3"
-                onClick={() =>toggleEyeActiveG(index) }
+                onClick={() =>{toggleEyeActiveG(idGroup); console.log(idGroup)} }
 
                 >
-                {toggleEyeG(index)}
+                {toggleEyeG(idGroup)}
               </button>
             </Tooltip>
       
             <Tooltip title="Move to Top" arrow>
-              <button className="mr-3" onClick={() => move(index, 0)} >
+              <button className="mr-3" onClick={() => move(idGroup, 0)} >
                 <i class="fa-solid fa-arrow-up"></i>
               </button>
             </Tooltip>
@@ -242,6 +234,7 @@ console.log("drag and drop triggered")
             </button>
             
           </div>
+       
           
         </div>
         
@@ -249,12 +242,12 @@ console.log("drag and drop triggered")
          
           <Accordion open={isOpen} >
           
-          {field.fields.map((d, index) => (
+          {field.fields.map((d, idField) => (
             
             //open={isOpen}
             
   
-            <ul key={index}>
+            <ul key={idField}>
               <li
               >
               <div className="mt-1 ml-4 flex justify-between border-b pb-2" >
@@ -292,9 +285,20 @@ console.log("drag and drop triggered")
                 <button
                   key={d.index}
                   className="mr-3"
-                  onClick={toggleEyeActiveF}
+                  onClick= {() => {
+                    //console.log(idGroup, idField);
+                   // console.log("group", state[idGroup]);
+                   // console.log("field", state[idGroup].fields[idField]);
+
+                    const newState = [...state];
+                    newState[idGroup].fields[idField] ={
+                      ...newState[idGroup].fields[idField],
+                      toggledF: !newState[idGroup].fields[idField].toggledF
+                    };
+                    changeState(newState)
+                  }}
                 >
-             {/* {toggleEyeF(d.toggledF)}*/}
+             
                 {d.toggledF === false ? (
                   <i className="fa-regular fa-eye"></i>
                 ) : (
@@ -303,7 +307,27 @@ console.log("drag and drop triggered")
                 </button>
               </Tooltip>
               <Tooltip title="Move to Top" arrow>
-                <button className="mr-3" onClick={() => moveF(d.index, 0)}>
+                <button className="mr-3" 
+                //onClick={() => moveF(d.index, 0)}
+                onClick= {(currentIndex, futureIndex) => {
+                  //console.log(idGroup, idField);
+                 // console.log("group", state[idGroup]);
+                 // console.log("field", state[idGroup].fields[idField]);
+
+                 const moveField = (currentIndex, futureIndex) => {
+                  if (futureIndex !== -1 && futureIndex < state.length) {
+                    const tempItemsArayF = [...state];
+                    console.log(tempItemsArayF);
+                    const item = tempItemsArayF[currentIndex];
+                    const movingItem = tempItemsArayF[futureIndex];
+                    tempItemsArayF[currentIndex] = movingItem;
+                    tempItemsArayF[futureIndex] = item;
+                    
+                    console.log('move function Fields' );
+                  }
+                  changeState(moveField);
+                };
+                }}>
                   <i class="fa-solid fa-arrow-up"></i>
                 </button>
               </Tooltip>
@@ -323,14 +347,14 @@ console.log("drag and drop triggered")
             </Accordion>
 
 
-
-            {provided.placeholder}
-            </ul>
+            </li>
             )}
-            </Droppable>
-            </DragDropContext>
+          </Draggable>
+            
+            
       </div>
      
+
 
 
    
@@ -345,16 +369,17 @@ console.log("drag and drop triggered")
   const [state, changeState] = useState(Groups);
   
   function toggleEyeActiveG(index) {
-    let arrayCopy = [...Groups];
-console.log("eye toggle G", arrayCopy);
+    let arrayCopy = [...state];
+console.log("eye toggle G", index);
+console.log("eye toggle G2", state[index].toggled);
     arrayCopy[index].toggled
       ? (arrayCopy[index].toggled = false)
       : (arrayCopy[index].toggled = true);
-      console.log("eye toggle G", Groups[index].toggled);
-    changeState({ ...state, Groups: arrayCopy });
+    
+    changeState( arrayCopy );
   }
   function toggleEyeG(index) {
-    if (Groups.toggled) {
+    if (state[index].toggled) {
      // console.log("eye toggle G", Groups[index].toggled);
       return <i className="fa-regular fa-eye-slash"></i>;
     } else {
@@ -362,50 +387,9 @@ console.log("eye toggle G", arrayCopy);
     }
   }
 
-  console.log(state);
+  //console.log(state);
 
    // Toggle Eye Function Fields
-
-   const [stateF, setStateF] = useState({...Groups.fields, toggledF: false});
-
-   //console.log(stateF);
-
-   function toggleEyeActiveF(index) {
-    let arrayCopyF = [{...Groups.fields, toggledF: false}];
-console.log("eye toggle F", arrayCopyF);
-      stateF[index].toggledF
-      ? (stateF[index].toggledF = false)
-      : (stateF[index].toggledF = true);
-
-    setStateF({ ...stateF, Groups:arrayCopyF});
-  }
-
-//    function toggleEyeActiveF(id) {
-//     let arrayCopyF = [{...Groups.fields, toggledF: false}];
-// console.log("eye toggle F", arrayCopyF);
-//     arrayCopyF[id].toggledF
-//       ? (arrayCopyF[id].toggledF = false)
-//       : (arrayCopyF[id].toggledF = true);
-
-//     setStateF({ ...stateF, Groups:arrayCopyF});
-//   }
-
-// const toggleEyeActiveF = () => {
-//   setStateF(prev => ({
-  
-//       ...prev, fields: !prev.toggledF,
-   
-//   }));
-// };
-//console.log(stateF.toggledF);
-
-  // function toggleEyeF(index) {
-  //   if ({...Groups, fields: {...Groups.fields, toggledF: ""}}) {
-  //     return <i className="fa-regular fa-eye-slash"></i>;
-  //   } else {
-  //     return <i className="fa-regular fa-eye"></i>;
-  //   }
-  // }
 
  // Arrowicon toggle
   function toggleArrowActiveG(index) {
@@ -472,14 +456,24 @@ console.log("eye toggle F", arrayCopyF);
               </Tooltip>
             </div>
             <div >
-
-            {itemsArr.map ((d, index)=>(
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="Group">
+            {(provided) => (
+              <ul
+                className="Group"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+            {state.map ((d, idGroup)=>(
          
-                    <GroupRender key={index} field= {d}/>
+                    <GroupRender key={idGroup} field= {d} index={idGroup}/>
                     
                     ))}
-
-
+                    {provided.placeholder}
+                    </ul>
+                    )}
+                    </Droppable>
+                    </DragDropContext>
 
             </div>
 

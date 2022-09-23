@@ -307,77 +307,7 @@ function App() {
           </div>
         </div>
         
-      {Groups.map((f, idx) => (
-        <div className="global-section border-b text-left py-3 justify-between flex">
-        
-          <div className="justify-start space-x-4 flex">
-              <div className="" 
-              //{...provided.dragHandleProps}
-              >
-                <i class="fa-solid fa-bars"></i>
-              </div>
-              <div>{f.name}
-                <span className="rounded bg-gradient-to-r from-dark-blue to-light-blue text-white px-1.5 py-.5 text-sm ml-2">
-                  {f.count}
-                </span>
-                
-              </div>
-              
-              
-            </div>
-            <FieldGroup key={idx} field={f} />
-             {/*<div className="inline-flex" //item={item.id}
-          >
-           {f.userCreated === 2 ? (
-              <Tooltip>
-                <button  className="mr-3">
-                  <i class="fa-solid fa-pencil"></i>
-                </button>
-              </Tooltip>
-            ) : null}
       
-            {f.userCreated === 2 ? (
-              <Tooltip title="Delete" arrow>
-                <button  className="mr-3">
-                  <i class="fa-solid fa-trash-can"></i>
-                </button>
-              </Tooltip>
-            ) : null}
-      
-            <Tooltip title="Visiblity" arrow>
-              <button
-                key={f.index}
-                className="mr-3"
-                
-
-                >
-                {toggleEyeG(index)}
-              </button>
-            </Tooltip>
-      
-            <Tooltip title="Move to Top" arrow>
-              <button className="mr-3"  >
-                <i class="fa-solid fa-arrow-up"></i>
-              </button>
-            </Tooltip>
-      
-            <button
-              key={f.id}
-              className="mr-3"
-              onClick={() => setIsOpen((o) => !o)}
-              
-            
-              //onChange={() => toggleArrowActiveG(item.index)}
-              >
-           
-              {isOpen ? <i class="fa-solid fa-angle-up"></i> : <i class="fa-solid fa-angle-down"></i>}
-            </button>
-            
-          </div>*/}
-          
-        
-        </div>
-      ))}
     
 
         </div>
