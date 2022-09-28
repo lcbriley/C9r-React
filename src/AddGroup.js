@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 //import FieldCheckbox from './FieldCheckbox';
 import { FieldList } from './FieldList';
 
@@ -10,7 +10,7 @@ function AddGroup(props) {
 
   const catSort = () => {
     let catArray = FieldList;
-    console.log(catArray);
+   // console.log(catArray);
     catArray.sort(function (a, b) {
       if (a.name < b.name) {
         return -1;
@@ -23,14 +23,14 @@ function AddGroup(props) {
     });
     setCat({ ...cat, FieldList: catArray });
 
-    console.log(catArray);
+    //console.log(catArray);
   };
 
   //Sort Z-A
   const [catZ, setCatZ] = useState(FieldList);
   const catSortZ = () => {
     let catArrayZ = FieldList;
-    console.log(catArrayZ);
+   // console.log(catArrayZ);
     catArrayZ.sort(function (a, b) {
       if (a.name < b.name) {
         return 1;
@@ -43,7 +43,7 @@ function AddGroup(props) {
     });
     setCatZ({ ...catZ, FieldList: catArrayZ });
 
-    console.log(catArrayZ);
+    //console.log(catArrayZ);
   };
 
   //Selected Count
@@ -172,12 +172,12 @@ function AddGroup(props) {
                 onClick={() => props.setTrigger(false)}
                 className="rounded border border-grey-200 py-1 px-2.5 mr-2 text-light-blue hover:text-dark-blue shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0"
               >
-                {' '}
-                Cancel{' '}
+                
+                Cancel
               </button>
               <button className="rounded border border-grey-200 py-1 px-2.5 bg-gradient-to-r from-dark-blue to-light-blue text-white shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0">
-                {' '}
-                Update{' '}
+                
+                Update
               </button>
             </div>
           </div>

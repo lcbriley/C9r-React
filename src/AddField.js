@@ -39,6 +39,13 @@ function AddField(props) {
  
     }
 
+    const [hotKey, setHotKey] = useState('');
+
+    const handleChange = event => {
+      const result = event.target.value.toLowerCase();
+  
+      setHotKey(result);
+    };
 
 
     return (props.trigger) ? (
@@ -102,7 +109,9 @@ function AddField(props) {
             <div className='grid grid-cols-2 grid-rows-1 gap-3 mt-2 ml-4'>
             <div className='col-span-1 flex text-sm mt-3'>Assign Keyboard Hot Key: </div>
             <div className='col-span-1 block'>
-              <input type="text"  maxLength={1} className='justify-center text-sm mt-1 pl-1 ml-10 appearance-none rounded block w-6 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
+            <input type="text"  maxLength={1}     
+            value={hotKey}
+            onChange={handleChange} className='justify-center text-sm mt-1 pl-1 ml-10 appearance-none rounded block w-6 border border-grey-500 shadow-sm focus:outline-none focus:border-dark-blue focus:ring-dark-blue focus:ring-0 focus:drop-shadow-blue' ></input>
               
               
             </div>
