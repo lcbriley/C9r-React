@@ -11,7 +11,7 @@ export const Groups = [
     position: 1,
     fields: [
         {
-        //id: "1",
+        id: "1",
         fieldName: "USER CREATED Field 1",
         scope: "Global",
         fieldType: "Yes/No",
@@ -50,7 +50,7 @@ export const Groups = [
     fields: [
       
         {
-        //id: '2',
+        id: '1',
         fieldName: "USER CREATED Field 2",
         scope: "Global",
         fieldType: "Date",
@@ -62,7 +62,7 @@ export const Groups = [
         positionF: 1,
       },
       {
-        //id: '2',
+        id: '2',
         fieldName: "USER CREATED Field 3",
         scope: "Global",
         fieldType: "Date",
