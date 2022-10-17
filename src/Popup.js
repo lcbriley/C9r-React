@@ -93,7 +93,8 @@ function Popup(props) {
 // };
 
 const moveF = (currentIndex, futureIndex, idGroup, idField ) => {
-  const tempItemsArayF = [...state[idGroup].fields[idField]];
+  console.log("idGroup", idGroup, "idField", idField, "state", state);
+  const tempItemsArayF = [...state[idGroup].fields[idField]]
   //console.log("move to top Fields" , state[idGroup].fields)
   if (futureIndex !== -1 && futureIndex < state.length) {
     
@@ -103,7 +104,11 @@ const moveF = (currentIndex, futureIndex, idGroup, idField ) => {
     const movingItem = tempItemsArayF[futureIndex];
     tempItemsArayF[currentIndex] = movingItem;
     tempItemsArayF[futureIndex] = item;
-    changeState(tempItemsArayF);
+    const newState = [...state]
+    newState[idGroup].fields[idField] ={
+      ...newState[idGroup].fields[idField]}
+      
+    changeState(newState);
   }
 };
 
@@ -322,7 +327,7 @@ const moveF = (currentIndex, futureIndex, idGroup, idField ) => {
               <Tooltip title="Move to Top" arrow>
                 <button className="mr-3" 
            
-                onClick={() =>  moveF()
+                onClick={() =>  moveF(0, 0, idGroup, idField)
                
                   
               //     {const moveF = (currentIndex, futureIndex, idGroup, fields, idField ) => {
