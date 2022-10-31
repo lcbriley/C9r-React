@@ -10,8 +10,8 @@ import { Groups } from './Groups';
 //import {userfields} from './Fields';
 //import ExpandGroup from './ExpandGroup';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-//import {orderBy, range} from "lodash";
 import EditField from './EditField';
+
 
 
 function Popup(props) {
@@ -77,18 +77,38 @@ function Popup(props) {
 //console.log(itemsArr)
 
 // Move to top Fields
-const [fieldsArr, setFieldsArr] = useState({...Groups.fields, id: 1 });
+//const [fieldsArr, setFieldsArr] = useState({...Groups.fields, id: 1 });
 //console.log(fieldsArr );
-const moveF = (currentIndex, futureIndex) => {
-  if (futureIndex !== -1 && futureIndex < fieldsArr.length) {
-    const tempItemsArayF = [...fieldsArr];
-    console.log(tempItemsArayF);
+// const moveF = (currentIndex, futureIndex) => {
+//   if (futureIndex !== -1 && futureIndex < fieldsArr.length) {
+//     const tempItemsArayF = [...fieldsArr];
+//     console.log(tempItemsArayF);
+//     const item = tempItemsArayF[currentIndex];
+//     const movingItem = tempItemsArayF[futureIndex];
+//     tempItemsArayF[currentIndex] = movingItem;
+//     tempItemsArayF[futureIndex] = item;
+//     setFieldsArr(tempItemsArayF);
+//     console.log('move function Fields' );
+//   }
+// };
+
+const moveF = (currentIndex, futureIndex, idGroup, idField ) => {
+  console.log("idGroup", idGroup, "idField", idField, "state", state);
+  const tempItemsArayF = [...state[idGroup].fields[idField]]
+  //console.log("move to top Fields" , state[idGroup].fields)
+  if (futureIndex !== -1 && futureIndex < state.length) {
+    
+    console.log("temp items array fields", tempItemsArayF);
+    console.log("idGroup", idGroup);
     const item = tempItemsArayF[currentIndex];
     const movingItem = tempItemsArayF[futureIndex];
     tempItemsArayF[currentIndex] = movingItem;
     tempItemsArayF[futureIndex] = item;
-    setFieldsArr(tempItemsArayF);
-    console.log('move function Fields' );
+    const newState = [...state]
+    newState[idGroup].fields[idField] ={
+      ...newState[idGroup].fields[idField]}
+      
+    changeState(newState);
   }
 };
 
@@ -208,7 +228,7 @@ const moveF = (currentIndex, futureIndex) => {
               <button
                 key={idGroup}
                 className="mr-3"
-                onClick={() =>{toggleEyeActiveG(idGroup); console.log(idGroup)} }
+                onClick={() =>{toggleEyeActiveG(idGroup)} }
 
                 >
                 {toggleEyeG(idGroup)}
@@ -242,115 +262,115 @@ const moveF = (currentIndex, futureIndex) => {
          
           <Accordion open={isOpen} >
           
-          {field.fields.map((d, idField) => (
-            
-            //open={isOpen}
-            
-  
-            <ul key={idField}>
-              <li
-              >
-              <div className="mt-1 ml-4 flex justify-between border-b pb-2" >
-             
-            <div>
-                <span className="">
-                  <i class="fa-solid fa-bars mr-3"></i>
-                </span>
-                {d.fieldName}
-            </div>
-            
-            <div>{d.fieldType || ''}</div>
-           
+            {field.fields.map((d, idField, index) => (
      
-            <div>
-              {d.familyTagging === false ? (
-                ' '
-              ) : (
-                <i class="fa-solid fa-user-tag"></i>
-              )}
-            </div>
-            <div>By: {d.user}</div>
-            <div className="" 
-            //item={itemArr.id}
-            >
-              <Tooltip title="Edit" arrow>
-                <button
-                 onClick={() => setButtonEditField(true)}
-                  className="mr-3"
+  
+              <ul key={idField}>
+            
+                <li
                 >
-                  <i class="fa-solid fa-pencil"></i>
-                </button>
-              </Tooltip>
-              <Tooltip title="Visiblity" arrow>
-                <button
-                  key={d.index}
-                  className="mr-3"
-                  onClick= {() => {
-                    //console.log(idGroup, idField);
-                   // console.log("group", state[idGroup]);
-                   // console.log("field", state[idGroup].fields[idField]);
-
-                    const newState = [...state];
-                    newState[idGroup].fields[idField] ={
-                      ...newState[idGroup].fields[idField],
-                      toggledF: !newState[idGroup].fields[idField].toggledF
-                    };
-                    changeState(newState)
-                  }}
-                >
-             
-                {d.toggledF === false ? (
-                  <i className="fa-regular fa-eye"></i>
-                ) : (
-                  <i className="fa-regular fa-eye-slash"></i>
-                )}
-                </button>
-              </Tooltip>
-              <Tooltip title="Move to Top" arrow>
-                <button className="mr-3" 
-                //onClick={() => moveF(d.index, 0)}
-                onClick= {(currentIndex, futureIndex) => {
-                  //console.log(idGroup, idField);
-                 // console.log("group", state[idGroup]);
-                 // console.log("field", state[idGroup].fields[idField]);
-
-                 const moveField = (currentIndex, futureIndex) => {
-                  if (futureIndex !== -1 && futureIndex < state.length) {
-                    const tempItemsArayF = [...state];
-                    console.log(tempItemsArayF);
-                    const item = tempItemsArayF[currentIndex];
-                    const movingItem = tempItemsArayF[futureIndex];
-                    tempItemsArayF[currentIndex] = movingItem;
-                    tempItemsArayF[futureIndex] = item;
-                    
-                    console.log('move function Fields' );
-                  }
-                  changeState(moveField);
-                };
-                }}>
-                  <i class="fa-solid fa-arrow-up"></i>
-                </button>
-              </Tooltip>
-            </div>
+                <div className="mt-1 ml-4 flex justify-between border-b pb-2" >
+               
+              <div>
+                  <span className="">
+                    <i class="fa-solid fa-bars mr-3"></i>
+                  </span>
+                  {d.fieldName}
               </div>
-     
-              <div className="mt-2">
-                       <EditField
-                         trigger={buttonEditField}
-                         setTrigger={setButtonEditField}
-                  />
-                     </div>
-  
-            </li>
-            </ul>
-            ))}
+              
+              <div>{d.fieldType || ''}</div>
+             
+       
+              <div>
+                {d.familyTagging === false ? (
+                  ' '
+                ) : (
+                  <i class="fa-solid fa-user-tag"></i>
+                )}
+              </div>
+              <div>By: {d.user}</div>
+              <div className="" 
+              //item={itemArr.id}
+              >
+                <Tooltip title="Edit" arrow>
+                  <button
+                   onClick={() => setButtonEditField(true)}
+                    className="mr-3"
+                  >
+                    <i class="fa-solid fa-pencil"></i>
+                  </button>
+                </Tooltip>
+                <Tooltip title="Visiblity" arrow>
+                  <button
+                    key={d.index}
+                    className="mr-3"
+                    onClick= {() => {
+                      const newState = [...state];
+                      console.log(newState[idGroup].fields[idField]);
+                       newState[idGroup].fields[idField] ={
+                        ...newState[idGroup].fields[idField],
+                        toggledF: !newState[idGroup].fields[idField].toggledF
+                      }
+                      changeState(newState)
+                    }}
+                  >
+               
+                  {d.toggledF === false ? (
+                    <i className="fa-regular fa-eye"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye-slash"></i>
+                  )}
+                  </button>
+                </Tooltip>
+                <Tooltip title="Move to Top" arrow>
+                  <button className="mr-3" 
+             
+                  onClick={() =>  moveF(0, 0, idGroup, idField)
+                 
+                    
+                //     {const moveF = (currentIndex, futureIndex, idGroup, fields, idField ) => {
+                //     const tempItemsArayF = [...state[idGroup].fields[idField]];
+                //     //console.log("move to top Fields" , state[idGroup].fields)
+                //     if (futureIndex !== -1 && futureIndex < state.length) {
+                      
+                //       console.log("temp items array fields", tempItemsArayF);
+                //       console.log("idGroup", idGroup);
+                //       const item = tempItemsArayF[currentIndex];
+                //       const movingItem = tempItemsArayF[futureIndex];
+                //       tempItemsArayF[currentIndex] = movingItem;
+                //       tempItemsArayF[futureIndex] = item;
+                //       changeState(tempItemsArayF);
+                //     }
+                //   };
+                //   console.log(moveF);
+                // }
+                }
+                  
+            >
+                    <i class="fa-solid fa-arrow-up"></i>
+                  </button>
+                </Tooltip>
+              </div>
+                </div>
+       
+               
+    
+              </li>
+              </ul>
+              ))}
             </Accordion>
 
 
             </li>
             )}
           </Draggable>
-            
+
+          <div className="mt-2">
+          <EditField
+            trigger={buttonEditField}
+            setTrigger={setButtonEditField}
+     />
+        </div>
             
       </div>
      
@@ -360,7 +380,7 @@ const moveF = (currentIndex, futureIndex) => {
    
   
                ) };
-  
+               
   
   
 
@@ -409,9 +429,9 @@ console.log("eye toggle G2", state[index].toggled);
       return <i class="fa-solid fa-angle-down"></i>;
     }
   }
-
+  
  
-  //console.log(itemsArr)
+
  
   
   return props.trigger ? (
@@ -457,7 +477,7 @@ console.log("eye toggle G2", state[index].toggled);
             </div>
             <div >
             <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="Group">
+            <Droppable droppableId="Group" type="groupList">
             {(provided) => (
               <ul
                 className="Group"
