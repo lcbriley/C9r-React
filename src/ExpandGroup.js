@@ -136,21 +136,7 @@ updateFields(reOrderedGroups);
 
 
 
-
-
-
  
-
-  // function handleOnDragEndFields(result) {
-  //   if (!result.destination) return;
-
-  //   const items = Array.from(fields);
-  //   const [reorderedItem] = items.splice(result.source.index, 1);
-  //   items.splice(result.destination.index, 0, reorderedItem);
-
-  //   updateFields(items);
-  //   console.log(updateFields);
-  // }
 
   // Toggle Eye Function
 
@@ -180,9 +166,7 @@ updateFields(reOrderedGroups);
     }
   };
 
-  //   const GroupfieldGroupId = Groups.fieldGroupId;
-
-  //   const FieldsfieldGroupId = userfields.fieldGroupId;
+ 
 
   return props.trigger ? (
     <div className="wrapper">
